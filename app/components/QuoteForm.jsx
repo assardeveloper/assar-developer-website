@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useContent } from "@/lib/content";
+import { track } from "@/lib/track";
 
 const budgets = ["Under $500", "$500 – $1,500", "$1,500 – $5,000", "$5,000+", "Not sure yet"];
 
@@ -15,6 +16,7 @@ export default function QuoteForm() {
 
     // No Formspree ID yet: open the visitor's email app with the details filled in.
     if (!site.formspreeId) {
+      track("quote:sent-by-email");
       const body = `Name: ${data.name}\nEmail: ${data.email}\nBudget: ${data.budget}\n\n${data.message}`;
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
         "New app project"
@@ -29,6 +31,7 @@ export default function QuoteForm() {
         headers: { Accept: "application/json", "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
+      if (res.ok) track(`quote:${data.budget}`);
       setStatus(res.ok ? "sent" : "error");
     } catch {
       setStatus("error");
@@ -84,7 +87,7 @@ export default function QuoteForm() {
       {site.whatsapp && (
         <p className="muted small">
           Prefer WhatsApp?{" "}
-          <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer">
+          <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer" data-track="chat:quote-page">
             Message me directly
           </a>
         </p>

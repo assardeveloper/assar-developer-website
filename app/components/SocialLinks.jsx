@@ -6,7 +6,7 @@ export default function SocialLinks() {
   return (
     <div className="social">
       {Object.entries(site.social).map(([key, url]) => (
-        <a key={key} href={url} target="_blank" rel="noopener noreferrer">
+        <a key={key} href={url} target="_blank" rel="noopener noreferrer" data-track={`social:${key}`}>
           {labels[key] ?? key}
         </a>
       ))}

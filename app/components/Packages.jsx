@@ -21,7 +21,7 @@ export default function Packages() {
               <li key={f}>{f}</li>
             ))}
           </ul>
-          <Link href="/hire/#quote" className={`btn ${p.highlight ? "" : "btn-outline"}`}>
+          <Link href="/hire/#quote" data-track={`package:${p.name}`} className={`btn ${p.highlight ? "" : "btn-outline"}`}>
             Get a quote
           </Link>
         </div>

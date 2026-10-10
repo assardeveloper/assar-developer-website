@@ -49,8 +49,8 @@ export default async function Home() {
               and web, from first screen to App Store launch.
             </p>
             <div className="hero-cta rise" style={{ "--d": "240ms" }}>
-              <Link href="/hire/#quote" className="btn btn-large shine">Get a free quote</Link>
-              <Link href="/shop/" className="btn btn-large btn-outline">Quick fixes from $25</Link>
+              <Link href="/hire/#quote" data-track="hire:hero-quote" className="btn btn-large shine">Get a free quote</Link>
+              <Link href="/shop/" data-track="hire:hero-quick-fixes" className="btn btn-large btn-outline">Quick fixes from $25</Link>
             </div>
             <Stats />
           </div>
@@ -137,7 +137,7 @@ export default async function Home() {
         <div className="container center">
           <h2 className="reveal">Ready to build your app?</h2>
           <p className="lead reveal">Tell me about your idea. I reply within 24 hours.</p>
-          <Link href="/hire/#quote" className="btn btn-large shine reveal">Start your project</Link>
+          <Link href="/hire/#quote" data-track="hire:bottom-cta" className="btn btn-large shine reveal">Start your project</Link>
         </div>
       </section>
     </>

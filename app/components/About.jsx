@@ -41,7 +41,7 @@ export default function About() {
               </div>
             ))}
           </div>
-          <Link href="/hire/#quote" className="btn shine reveal">Work with me</Link>
+          <Link href="/hire/#quote" data-track="hire:about" className="btn shine reveal">Work with me</Link>
         </div>
       </div>
     </section>

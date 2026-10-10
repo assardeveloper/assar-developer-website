@@ -7,7 +7,7 @@ export default async function FreeCode() {
     <>
       <div className="grid grid-3">
         {repos.map((r, i) => (
-          <a key={r.url} href={r.url} target="_blank" rel="noopener noreferrer" className="card repo reveal" style={{ "--d": `${i * 70}ms` }}>
+          <a key={r.url} href={r.url} target="_blank" rel="noopener noreferrer" data-track={`code:${r.name}`} className="card repo reveal" style={{ "--d": `${i * 70}ms` }}>
             <span className="tag">Free · Open source</span>
             <h3>{r.name}</h3>
             <p className="muted">{r.desc}</p>
@@ -17,7 +17,7 @@ export default async function FreeCode() {
             </div>
           </a>
         ))}
-        <a href={site.social.github} target="_blank" rel="noopener noreferrer" className="card repo repo-more reveal">
+        <a href={site.social.github} target="_blank" rel="noopener noreferrer" data-track="social:github" className="card repo repo-more reveal">
           <div className="gig-icon">⭐</div>
           <h3>More code coming</h3>
           <p className="muted">I'm uploading the code from my videos. Follow me on GitHub so you don't miss it.</p>

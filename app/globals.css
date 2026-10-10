@@ -588,3 +588,51 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .admin-step input:focus { outline: 2px solid var(--accent); border-color: transparent; }
 .admin-help-box summary { cursor: pointer; color: var(--accent); font-size: 0.88rem; }
 .admin-help-box .admin-help { margin-top: 8px; }
+
+/* ───────────── Admin analytics ───────────── */
+:root { --chart-1: #2b9be6; }
+:root[data-theme="light"] { --chart-1: #0a6fc2; }
+@media (prefers-color-scheme: light) { :root:not([data-theme]) { --chart-1: #0a6fc2; } }
+
+.admin-chip { padding: 8px 14px; border: 1px solid var(--border); border-radius: 99px; color: var(--text); font: inherit; font-size: 0.9rem; background: none; cursor: pointer; }
+.admin-chip:hover { border-color: var(--accent); }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 10px; padding: 3px; background: var(--card); flex: none; }
+.seg button { border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.85rem; padding: 6px 12px; border-radius: 7px; cursor: pointer; }
+.seg button.on { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--text); font-weight: 700; }
+
+.an-loading { opacity: 0.55; transition: opacity 0.2s; }
+.an-tiles { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 12px; }
+.an-tile { display: flex; flex-direction: column; gap: 4px; padding: 16px 18px; }
+.an-tile:hover { transform: none !important; }
+.an-tile strong { font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.an-hero { grid-row: span 2; justify-content: center; }
+.an-hero strong { font-size: 3rem; }
+.an-note { margin: 10px 0 18px; }
+@media (max-width: 860px) { .an-tiles { grid-template-columns: repeat(2, 1fr); } .an-hero { grid-column: 1 / -1; grid-row: auto; } }
+
+.an-chart-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.an-chart { position: relative; display: flex; align-items: flex-end; gap: 2px; height: 180px; border-bottom: 1px solid var(--border); padding-top: 18px; }
+.an-ymax { position: absolute; top: 0; left: 0; }
+.an-col { flex: 1; height: 100%; display: flex; align-items: flex-end; cursor: default; outline: none; }
+.an-bar { width: 100%; min-height: 2px; max-width: 28px; margin: 0 auto; background: var(--chart-1); border-radius: 4px 4px 0 0; transition: opacity 0.15s; }
+.an-chart:hover .an-col:not(.hover) .an-bar { opacity: 0.45; }
+.an-col:focus-visible .an-bar { outline: 2px solid var(--text); outline-offset: 2px; }
+.an-axis { display: flex; justify-content: space-between; margin-top: 6px; }
+.an-table table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 8px; }
+.an-table th, .an-table td { text-align: left; padding: 4px 0; border-bottom: 1px solid var(--border); }
+.an-table td:last-child, .an-table th:last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
+.an-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 4px; }
+.an-grid .admin-block { margin-bottom: 0; }
+@media (max-width: 860px) { .an-grid { grid-template-columns: 1fr; } }
+.an-rank { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.an-rank-row { display: flex; justify-content: space-between; gap: 12px; font-size: 0.88rem; }
+.an-rank-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.an-rank-row b { font-variant-numeric: tabular-nums; }
+.an-rank-track { height: 6px; border-radius: 99px; background: var(--bg); margin-top: 4px; overflow: hidden; }
+.an-rank-track div { height: 100%; background: var(--chart-1); border-radius: 99px; }
+.an-cats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 24px; }
+@media (max-width: 860px) { .an-cats { grid-template-columns: 1fr; } }
+.an-cat { display: flex; align-items: center; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.an-cat div { flex: 1; display: flex; flex-direction: column; line-height: 1.35; }
+.an-cat b { font-size: 1.1rem; font-variant-numeric: tabular-nums; }

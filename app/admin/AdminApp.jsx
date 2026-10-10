@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { fixed } from "@/site.config";
 import { verifyToken, loadContent, saveContent } from "@/lib/github-admin";
 import { lockSecret, unlockSecret } from "@/lib/crypto";
+import { IGNORE_KEY } from "@/lib/track";
+import AnalyticsPanel from "./AnalyticsPanel";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: "🏠" },
+  { id: "analytics", label: "Analytics", icon: "📈" },
   { id: "general", label: "General", icon: "⚙️" },
   { id: "services", label: "Quick services", icon: "⚡" },
   { id: "packages", label: "Packages", icon: "📦" },
@@ -41,6 +44,7 @@ export default function AdminApp() {
 
   function loggedIn(token) {
     store.set(sessionStorage, SESSION_KEY, token);
+    store.set(localStorage, IGNORE_KEY, "1"); // don't count the owner's own visits
     store.del(localStorage, OLD_KEY);
     setState((s) => ({ ...s, token, lock: JSON.parse(store.get(localStorage, LOCK_KEY) || "null"), oldKey: null }));
   }
@@ -273,6 +277,7 @@ function Dashboard({ token, onLogout }) {
         ) : (
           <>
             {tab === "dashboard" && <Overview data={data} setSite={setSite} go={setTab} />}
+            {tab === "analytics" && <AnalyticsPanel code={data.site.goatcounter?.trim()} goGeneral={() => setTab("general")} />}
             {tab === "general" && <General site={data.site} setSite={setSite} />}
             {tab === "services" && (
               <ListEditor
@@ -421,6 +426,7 @@ function Overview({ data, setSite, go }) {
       <div className="card admin-block">
         <h3>Shortcuts</h3>
         <div className="admin-shortcuts">
+          <button className="admin-chip" onClick={() => go("analytics")}>📈 Analytics</button>
           <a href="/" target="_blank" rel="noopener noreferrer">🌐 Website</a>
           <a href={fixed.social.youtube} target="_blank" rel="noopener noreferrer">▶️ YouTube</a>
           <a href={fixed.social.github} target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
@@ -445,6 +451,7 @@ function General({ site, setSite }) {
           <Field label="WhatsApp (digits only, e.g. 923001234567)" value={site.whatsapp} onChange={(v) => setSite("whatsapp", v.replace(/\D/g, ""))} />
           <Field label="Formspree form ID (optional)" value={site.formspreeId} onChange={(v) => setSite("formspreeId", v)} />
           <Field label="Tip / Buy me a coffee link (optional)" value={site.tipUrl} onChange={(v) => setSite("tipUrl", v)} />
+          <Field label="GoatCounter code (for Analytics)" value={site.goatcounter} onChange={(v) => setSite("goatcounter", v.trim().toLowerCase())} placeholder="assardeveloper" />
         </div>
         <Field label="Short description (used by Google on the next deploy)" type="textarea" value={site.description} onChange={(v) => setSite("description", v)} />
         <Toggle label="Available for new projects" checked={site.available} onChange={(v) => setSite("available", v)} />

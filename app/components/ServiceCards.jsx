@@ -18,7 +18,7 @@ export default function ServiceCards({ limit }) {
               <p className="price">{s.price}</p>
               <p className="muted small">⏱ {s.time}</p>
             </div>
-            <a href={orderLink(s, site)} className="btn shine" target="_blank" rel="noopener noreferrer">
+            <a href={orderLink(s, site)} data-track={`${s.buyUrl ? "checkout" : "order"}:${s.name}`} className="btn shine" target="_blank" rel="noopener noreferrer">
               Order now
             </a>
           </div>

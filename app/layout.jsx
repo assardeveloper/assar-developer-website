@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Effects from "./components/Effects";
 import FloatingCta from "./components/FloatingCta";
 import Announcement from "./components/Announcement";
+import Analytics from "./components/Analytics";
 import { ContentProvider } from "@/lib/content";
 
 // Runs before the page paints so there is no flash of the wrong theme.
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
         </noscript>
         <ContentProvider>
           <Effects />
+          <Analytics />
           <Announcement />
           <Header />
           <main>{children}</main>

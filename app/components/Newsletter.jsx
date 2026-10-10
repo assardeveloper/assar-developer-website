@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useContent } from "@/lib/content";
+import { track } from "@/lib/track";
 
 // Collects emails (via Formspree) in exchange for a free UI. Grows a list you can sell to later.
 export default function Newsletter() {
@@ -11,6 +12,7 @@ export default function Newsletter() {
   async function onSubmit(e) {
     e.preventDefault();
     const email = new FormData(e.currentTarget).get("email");
+    track("newsletter:signup");
     if (!site.formspreeId) {
       window.location.href = `mailto:${site.email}?subject=${encodeURIComponent("Send me the free Flutter UI")}&body=${encodeURIComponent(`Please add me to your list: ${email}`)}`;
       return;

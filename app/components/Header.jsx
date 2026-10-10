@@ -17,7 +17,7 @@ export default function Header() {
           <Link href="/shop/">Shop</Link>
           <Link href="/hire/#packages">Pricing</Link>
           <ThemeToggle />
-          <Link href="/hire/#quote" className="btn btn-small shine">
+          <Link href="/hire/#quote" data-track="hire:header" className="btn btn-small shine">
             Hire Me
           </Link>
         </nav>
