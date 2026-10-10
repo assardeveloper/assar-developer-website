@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/site.config";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -15,6 +16,7 @@ export default function Header() {
           <Link href="/videos/">Videos</Link>
           <Link href="/shop/">Shop</Link>
           <Link href="/hire/#packages">Pricing</Link>
+          <ThemeToggle />
           <Link href="/hire/#quote" className="btn btn-small shine">
             Hire Me
           </Link>

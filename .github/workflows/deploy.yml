@@ -5,6 +5,8 @@ name: Deploy website
 on:
   push:
     branches: [main]
+    # Content edits from /admin show up live without a redeploy.
+    paths-ignore: ["content/**"]
   schedule:
     - cron: "0 */6 * * *"
   workflow_dispatch:
@@ -12,6 +14,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      # Skips the deploy until the Firebase secret is set up (firebase init hosting:github).
+      HAS_SECRET: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEAL_406FC != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,8 +24,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+        if: env.HAS_SECRET == 'true'
       - run: npm run build
+        if: env.HAS_SECRET == 'true'
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: env.HAS_SECRET == 'true'
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DEAL_406FC }}

@@ -1,4 +1,4 @@
-import { site, quickServices } from "@/site.config";
+import { site } from "@/site.config";
 import ServiceCards from "../components/ServiceCards";
 import FreeCode from "../components/FreeCode";
 import Newsletter from "../components/Newsletter";
@@ -28,7 +28,7 @@ export default function Shop() {
         <div className="container">
           <h2 className="reveal">Quick services</h2>
           <p className="muted section-lead reveal">Delivered by me personally, with 6+ years of Flutter experience.</p>
-          <ServiceCards items={quickServices} />
+          <ServiceCards />
         </div>
       </section>
 

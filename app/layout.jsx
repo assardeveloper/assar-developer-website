@@ -4,6 +4,11 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Effects from "./components/Effects";
 import FloatingCta from "./components/FloatingCta";
+import Announcement from "./components/Announcement";
+import { ContentProvider } from "@/lib/content";
+
+// Runs before the page paints so there is no flash of the wrong theme.
+const themeScript = `try{var t=localStorage.getItem("theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}`;
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -23,16 +28,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
         </noscript>
-        <Effects />
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <FloatingCta />
+        <ContentProvider>
+          <Effects />
+          <Announcement />
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <FloatingCta />
+        </ContentProvider>
       </body>
     </html>
   );

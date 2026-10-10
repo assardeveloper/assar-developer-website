@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/site.config";
+import { useContent } from "@/lib/content";
 
 const budgets = ["Under $500", "$500 – $1,500", "$1,500 – $5,000", "$5,000+", "Not sure yet"];
 
 export default function QuoteForm() {
+  const { site } = useContent();
   const [status, setStatus] = useState("idle"); // idle | sending | sent | error
 
   async function onSubmit(e) {

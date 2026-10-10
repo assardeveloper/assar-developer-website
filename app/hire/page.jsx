@@ -1,4 +1,6 @@
-import { site, faqs } from "@/site.config";
+import { site } from "@/site.config";
+import Years from "../components/Years";
+import Faqs from "../components/Faqs";
 import Packages from "../components/Packages";
 import QuoteForm from "../components/QuoteForm";
 
@@ -25,7 +27,7 @@ export default function Hire() {
             Let's build your <span className="accent">app</span>.
           </h1>
           <p className="lead">
-            {site.yearsExperience}+ years building Flutter apps for startups and businesses. Clear
+            <Years />+ years building Flutter apps for startups and businesses. Clear
             prices, weekly updates, and you own all the code.
           </p>
         </div>
@@ -69,12 +71,7 @@ export default function Hire() {
       <section className="section section-alt">
         <div className="container narrow">
           <h2>Questions</h2>
-          {faqs.map((f) => (
-            <details key={f.q} className="faq reveal">
-              <summary>{f.q}</summary>
-              <p className="muted">{f.a}</p>
-            </details>
-          ))}
+          <Faqs />
         </div>
       </section>
     </>

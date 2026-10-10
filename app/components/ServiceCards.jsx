@@ -1,10 +1,14 @@
-import { orderLink } from "@/lib/order";
+"use client";
 
-export default function ServiceCards({ items, limit }) {
+import { orderLink } from "@/lib/order";
+import { useContent } from "@/lib/content";
+
+export default function ServiceCards({ limit }) {
+  const { quickServices, site } = useContent();
   return (
     <div className="grid grid-3">
-      {items.slice(0, limit ?? items.length).map((s, i) => (
-        <div key={s.name} className={`card gig reveal ${s.popular ? "package-highlight" : ""}`} style={{ "--d": `${i * 70}ms` }}>
+      {quickServices.slice(0, limit ?? quickServices.length).map((s, i) => (
+        <div key={s.name + i} className={`card gig reveal ${s.popular ? "package-highlight" : ""}`} style={{ "--d": `${i * 70}ms` }}>
           {s.popular && <span className="badge">Best seller</span>}
           <div className="gig-icon">{s.icon}</div>
           <h3>{s.name}</h3>
@@ -14,7 +18,7 @@ export default function ServiceCards({ items, limit }) {
               <p className="price">{s.price}</p>
               <p className="muted small">⏱ {s.time}</p>
             </div>
-            <a href={orderLink(s)} className="btn shine" target="_blank" rel="noopener noreferrer">
+            <a href={orderLink(s, site)} className="btn shine" target="_blank" rel="noopener noreferrer">
               Order now
             </a>
           </div>

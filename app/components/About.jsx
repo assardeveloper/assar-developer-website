@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { site } from "@/site.config";
+import Years from "./Years";
 
 const reasons = [
   { icon: "💬", title: "You talk to me directly", desc: "No agency, no middlemen. The person you message is the person writing your code." },
@@ -22,7 +23,7 @@ export default function About() {
           <p className="eyebrow reveal">About me</p>
           <h2 className="reveal">Hi, I'm Assar 👋</h2>
           <p className="lead reveal">
-            I'm a Flutter developer from Pakistan with {site.yearsExperience}+ years of experience building apps
+            I'm a Flutter developer from Pakistan with <Years />+ years of experience building apps
             for clients around the world: delivery platforms, dating apps, marketplaces, fitness and business apps.
           </p>
           <p className="muted reveal">

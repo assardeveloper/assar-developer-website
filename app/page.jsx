@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { site, projects, quickServices } from "@/site.config";
 import Packages from "./components/Packages";
 import SocialLinks from "./components/SocialLinks";
 import VideoGrid from "./components/VideoGrid";
-import CountUp from "./components/CountUp";
+import Stats from "./components/Stats";
+import Years from "./components/Years";
+import Available from "./components/Available";
+import Projects from "./components/Projects";
 import HeroVisual from "./components/HeroVisual";
 import About from "./components/About";
 import Marquee from "./components/Marquee";
@@ -32,7 +34,7 @@ export default async function Home() {
         </div>
         <div className="container hero-grid">
           <div>
-            <p className="available rise"><span className="pulse-dot" /> Available for new projects</p>
+            <Available />
             <h1 className="reveal" style={{ "--d": "80ms" }}>
               I build <span className="accent">Flutter apps</span> for{" "}
               <span className="rotator">
@@ -43,21 +45,14 @@ export default async function Home() {
               </span>
             </h1>
             <p className="lead rise" style={{ "--d": "160ms" }}>
-              {site.yearsExperience}+ years turning ideas and designs into fast, beautiful apps for iOS, Android
+              <Years />+ years turning ideas and designs into fast, beautiful apps for iOS, Android
               and web, from first screen to App Store launch.
             </p>
             <div className="hero-cta rise" style={{ "--d": "240ms" }}>
               <Link href="/hire/#quote" className="btn btn-large shine">Get a free quote</Link>
               <Link href="/shop/" className="btn btn-large btn-outline">Quick fixes from $25</Link>
             </div>
-            <div className="stats rise" style={{ "--d": "320ms" }}>
-              {site.stats.map((s) => (
-                <div key={s.label}>
-                  <CountUp value={s.value} />
-                  <span>{s.label}</span>
-                </div>
-              ))}
-            </div>
+            <Stats />
           </div>
           <HeroVisual />
         </div>
@@ -91,7 +86,7 @@ export default async function Home() {
             </div>
             <Link href="/shop/" className="btn btn-outline">All services →</Link>
           </div>
-          <ServiceCards items={quickServices} limit={3} />
+          <ServiceCards limit={3} />
         </div>
       </section>
 
@@ -99,18 +94,7 @@ export default async function Home() {
         <div className="container">
           <h2 className="reveal">Recent work</h2>
           <p className="muted section-lead reveal">Real apps I've built for clients and products.</p>
-          <div className="grid grid-3">
-            {projects.map((p, i) => (
-              <div key={p.title} className="card project reveal" style={{ "--d": `${i * 70}ms` }}>
-                <span className="tag">{p.type}</span>
-                <h3>{p.title}</h3>
-                <p className="muted">{p.desc}</p>
-                <div className="chips">
-                  {p.tech.map((t) => <span key={t} className="chip">{t}</span>)}
-                </div>
-              </div>
-            ))}
-          </div>
+          <Projects />
         </div>
       </section>
 

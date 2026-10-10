@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { site } from "@/site.config";
+import { useContent } from "@/lib/content";
 
 // Collects emails (via Formspree) in exchange for a free UI. Grows a list you can sell to later.
 export default function Newsletter() {
+  const { site } = useContent();
   const [status, setStatus] = useState("idle");
 
   async function onSubmit(e) {

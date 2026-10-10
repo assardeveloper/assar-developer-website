@@ -9,9 +9,9 @@ export default function Effects() {
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const items = document.querySelectorAll(".reveal");
+    const items = () => document.querySelectorAll(".reveal:not(.in)");
     if (reduce || !("IntersectionObserver" in window)) {
-      items.forEach((el) => el.classList.add("in"));
+      items().forEach((el) => el.classList.add("in"));
       return;
     }
     const io = new IntersectionObserver(
@@ -24,8 +24,14 @@ export default function Effects() {
         }),
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
-    items.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+    items().forEach((el) => io.observe(el));
+    // Content can change after load (live updates from /admin): watch for new elements too.
+    const mo = new MutationObserver(() => items().forEach((el) => io.observe(el)));
+    mo.observe(document.body, { childList: true, subtree: true });
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, [pathname]);
 
   useEffect(() => {
