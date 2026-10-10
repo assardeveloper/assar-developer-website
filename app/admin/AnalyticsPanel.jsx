@@ -279,12 +279,12 @@ function DailyChart({ stats }) {
   return (
     <div className="card admin-block">
       <div className="an-chart-head">
-        <h3>Visits per day</h3>
+        <h3>Activity per day <span className="muted small">(visits + clicks)</span></h3>
         <span className="muted small">
-          {hover !== null ? `${label(stats[hover].day)} · ${fmt(stats[hover].daily)} visits` : `Peak: ${fmt(max)}`}
+          {hover !== null ? `${label(stats[hover].day)} · ${fmt(stats[hover].daily)} visits + clicks` : `Peak: ${fmt(max)}`}
         </span>
       </div>
-      <div className="an-chart" role="img" aria-label={`Visits per day, highest ${max}`} onMouseLeave={() => setHover(null)}>
+      <div className="an-chart" role="img" aria-label={`Visits and clicks per day, highest ${max}`} onMouseLeave={() => setHover(null)}>
         <span className="an-ymax muted small">{fmt(max)}</span>
         {stats.map((s, i) => (
           <div
@@ -293,7 +293,7 @@ function DailyChart({ stats }) {
             onMouseEnter={() => setHover(i)}
             onFocus={() => setHover(i)}
             tabIndex={0}
-            aria-label={`${label(s.day)}: ${s.daily} visits`}
+            aria-label={`${label(s.day)}: ${s.daily} visits and clicks`}
           >
             <div className="an-bar" style={{ height: `${(s.daily / max) * 100}%` }} />
           </div>
@@ -306,7 +306,7 @@ function DailyChart({ stats }) {
       <details className="an-table">
         <summary className="muted small">View as table</summary>
         <table>
-          <thead><tr><th>Day</th><th>Visits</th></tr></thead>
+          <thead><tr><th>Day</th><th>Visits + clicks</th></tr></thead>
           <tbody>
             {stats.map((s) => (
               <tr key={s.day}><td>{label(s.day)}</td><td>{fmt(s.daily)}</td></tr>
