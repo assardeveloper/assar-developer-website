@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useContent } from "@/lib/content";
 import { track } from "@/lib/track";
+import { sendForm } from "@/lib/sendForm";
 
 const budgets = ["Under $500", "$500 – $1,500", "$1,500 – $5,000", "$5,000+", "Not sure yet"];
 
@@ -14,25 +15,11 @@ export default function QuoteForm() {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.currentTarget));
 
-    // No Formspree ID yet: open the visitor's email app with the details filled in.
-    if (!site.formspreeId) {
-      track("quote:sent-by-email");
-      const body = `Name: ${data.name}\nEmail: ${data.email}\nBudget: ${data.budget}\n\n${data.message}`;
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-        "New app project"
-      )}&body=${encodeURIComponent(body)}`;
-      return;
-    }
-
     setStatus("sending");
     try {
-      const res = await fetch(`https://formspree.io/f/${site.formspreeId}`, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (res.ok) track(`quote:${data.budget}`);
-      setStatus(res.ok ? "sent" : "error");
+      const ok = await sendForm(site, `🚀 New project request from ${data.name} (${data.budget})`, data);
+      if (ok) track(`quote:${data.budget}`);
+      setStatus(ok ? "sent" : "error");
     } catch {
       setStatus("error");
     }
@@ -81,7 +68,9 @@ export default function QuoteForm() {
       </button>
       {status === "error" && (
         <p className="error">
-          Something went wrong. Please email me at <a href={`mailto:${site.email}`}>{site.email}</a>.
+          Couldn't send right now. Please message me on{" "}
+          <a href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hi Assar, I'd like a quote for my app.")}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>{" "}
+          or email <a href={`mailto:${site.email}`}>{site.email}</a>.
         </p>
       )}
       {site.whatsapp && (

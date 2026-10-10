@@ -3,8 +3,9 @@
 import { useState } from "react";
 import { useContent } from "@/lib/content";
 import { track } from "@/lib/track";
+import { sendForm } from "@/lib/sendForm";
 
-// Collects emails (via Formspree) in exchange for a free UI. Grows a list you can sell to later.
+// Collects emails (sent to your inbox) in exchange for a free UI. Grows a list you can sell to later.
 export default function Newsletter() {
   const { site } = useContent();
   const [status, setStatus] = useState("idle");
@@ -13,18 +14,10 @@ export default function Newsletter() {
     e.preventDefault();
     const email = new FormData(e.currentTarget).get("email");
     track("newsletter:signup");
-    if (!site.formspreeId) {
-      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent("Send me the free Flutter UI")}&body=${encodeURIComponent(`Please add me to your list: ${email}`)}`;
-      return;
-    }
     setStatus("sending");
     try {
-      const res = await fetch(`https://formspree.io/f/${site.formspreeId}`, {
-        method: "POST",
-        headers: { Accept: "application/json", "Content-Type": "application/json" },
-        body: JSON.stringify({ email, type: "newsletter" }),
-      });
-      setStatus(res.ok ? "sent" : "error");
+      const ok = await sendForm(site, "📧 New email signup (free Flutter UI)", { email, note: "Send this person the free Flutter UI." });
+      setStatus(ok ? "sent" : "error");
     } catch {
       setStatus("error");
     }
@@ -37,7 +30,7 @@ export default function Newsletter() {
         <p className="muted">Join the list and get a free login UI source code, plus new UIs and tips every week.</p>
       </div>
       {status === "sent" ? (
-        <p className="success">You're in! Check your inbox. ✨</p>
+        <p className="success">You're in! I'll email you the free UI soon. ✨</p>
       ) : (
         <form onSubmit={onSubmit} className="newsletter-form">
           <input name="email" type="email" required placeholder="you@email.com" autoComplete="email" />
