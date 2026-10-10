@@ -24,18 +24,18 @@ export default function Newsletter() {
   }
 
   return (
-    <div className="newsletter reveal">
+    <div className="newsletter card reveal">
       <div>
-        <h2>Get a free Flutter UI</h2>
-        <p className="muted">Join the list for a free login screen source code, plus new UIs and tips now and then. No spam.</p>
+        <h2>Get a free Flutter UI 🎁</h2>
+        <p className="muted">Join the list and get a free login UI source code, plus new UIs and tips every week.</p>
       </div>
       {status === "sent" ? (
-        <p className="success">You're in. I'll email you the free UI soon.</p>
+        <p className="success">You're in! I'll email you the free UI soon. ✨</p>
       ) : (
         <form onSubmit={onSubmit} className="newsletter-form">
           <input name="email" type="email" required placeholder="you@email.com" autoComplete="email" />
-          <button className="btn" disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : "Send it"}
+          <button className="btn shine" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Send it to me"}
           </button>
         </form>
       )}

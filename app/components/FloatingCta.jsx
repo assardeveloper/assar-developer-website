@@ -11,7 +11,7 @@ export default function FloatingCta() {
   const href = site.whatsapp ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent("Hi Assar, I need a Flutter app.")}` : "/hire/#quote";
   return (
     <Link href={href} className="floating-cta" data-track="chat:floating-button" aria-label="Chat with Assar">
-      <img src="/assar-avatar.jpg" alt="" /> <span>Chat on WhatsApp</span>
+      <span className="fc-avatar"><img src="/assar-avatar.jpg" alt="" /><span className="pulse-dot" /></span> Chat with Assar
     </Link>
   );
 }

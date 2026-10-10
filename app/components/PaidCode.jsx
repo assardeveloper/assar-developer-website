@@ -32,14 +32,12 @@ export default function PaidCode() {
       {products.map((p, i) => {
         const id = youtubeId(p.video);
         return (
-          <div key={p.name + i} className="product reveal" style={{ "--d": `${i * 80}ms` }}>
+          <div key={p.name + i} className="card product reveal" style={{ "--d": `${i * 80}ms` }}>
             <div className="product-thumb">
-              {id ? <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" /> : <span className="product-ph">Flutter</span>}
-            </div>
-            <div className="product-top">
-              <h3>{p.name}</h3>
+              {id ? <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" /> : <span>💙</span>}
               <span className="product-price">{p.price}</span>
             </div>
+            <h3>{p.name}</h3>
             <p className="muted">{p.desc}</p>
             <ul className="checks">
               {(p.features ?? []).filter((f) => f.trim()).map((f) => <li key={f}>{f}</li>)}
@@ -47,16 +45,16 @@ export default function PaidCode() {
             <a
               href={isLemon(p.buyUrl) ? lemonUrl(p.buyUrl) : orderLink(p, site, "Please send me the payment details.")}
               data-track={`${p.buyUrl ? "checkout" : "buy"}:${p.name}`}
-              className={`btn ${isLemon(p.buyUrl) ? "lemonsqueezy-button" : ""}`}
+              className={`btn shine ${isLemon(p.buyUrl) ? "lemonsqueezy-button" : ""}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              {p.buyUrl ? `Buy now · ${p.price}` : `Buy for ${p.price}`}
+              {p.buyUrl ? `💳 Buy now · ${p.price}` : `Buy for ${p.price}`}
             </a>
-            {p.buyUrl && <p className="muted small product-secure">Secure card payment · instant download</p>}
+            {p.buyUrl && <p className="muted small product-secure">🔒 Secure card payment · instant download</p>}
             {id && (
               <a href={p.video} target="_blank" rel="noopener noreferrer" className="product-demo" data-track={`video:${p.name}`}>
-                Watch demo ↗
+                ▶ Watch demo
               </a>
             )}
           </div>

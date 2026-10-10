@@ -6,13 +6,13 @@ import CountUp from "./CountUp";
 export default function Stats() {
   const { site } = useContent();
   return (
-    <dl className="stats rise" style={{ "--d": "240ms" }}>
+    <div className="stats rise" style={{ "--d": "320ms" }}>
       {site.stats.map((s) => (
         <div key={s.label}>
-          <dt>{s.label}</dt>
-          <dd><CountUp value={s.value} /></dd>
+          <CountUp value={s.value} />
+          <span>{s.label}</span>
         </div>
       ))}
-    </dl>
+    </div>
   );
 }

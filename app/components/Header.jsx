@@ -8,16 +8,17 @@ export default function Header() {
       <div className="container header-inner">
         <Link href="/" className="logo">
           <img src="/assar-avatar.jpg" alt="" className="logo-avatar" />
-          <span>{site.name}</span>
+          {site.name}
         </Link>
         <nav className="nav">
+          <Link href="/#about">About</Link>
           <Link href="/#work">Work</Link>
           <Link href="/videos/">Videos</Link>
           <Link href="/shop/">Shop</Link>
           <Link href="/hire/#packages">Pricing</Link>
           <ThemeToggle />
-          <Link href="/hire/#quote" data-track="hire:header" className="btn btn-small">
-            Hire me
+          <Link href="/hire/#quote" data-track="hire:header" className="btn btn-small shine">
+            Hire Me
           </Link>
         </nav>
       </div>

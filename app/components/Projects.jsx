@@ -5,18 +5,17 @@ import { useContent } from "@/lib/content";
 export default function Projects() {
   const { projects } = useContent();
   return (
-    <ul className="project-list">
+    <div className="grid grid-3">
       {projects.map((p, i) => (
-        <li key={p.title + i} className="reveal" style={{ "--d": `${(i % 2) * 60}ms` }}>
-          <span className="num">{String(i + 1).padStart(2, "0")}</span>
-          <div>
-            <p className="eyebrow-sm">{p.type}</p>
-            <h3>{p.title}</h3>
-            <p className="muted">{p.desc}</p>
-            <p className="tags">{(p.tech ?? []).join(" · ")}</p>
+        <div key={p.title + i} className="card project reveal" style={{ "--d": `${i * 70}ms` }}>
+          <span className="tag">{p.type}</span>
+          <h3>{p.title}</h3>
+          <p className="muted">{p.desc}</p>
+          <div className="chips">
+            {(p.tech ?? []).map((t) => <span key={t} className="chip">{t}</span>)}
           </div>
-        </li>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }

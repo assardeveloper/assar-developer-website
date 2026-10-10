@@ -151,7 +151,7 @@ export default function AnalyticsPanel({ code, goGeneral }) {
         <div className={loading ? "an-loading" : ""}>
           <div className="an-tiles">
             <div className="card an-tile an-hero">
-              <span className="muted small">Visitors</span>
+              <span className="muted small">👀 Visitors</span>
               <strong>{fmt(data.visitors)}</strong>
               <span className="muted small">{fmt(data.pageviews)} page views</span>
             </div>
@@ -159,7 +159,7 @@ export default function AnalyticsPanel({ code, goGeneral }) {
               const c = categories.find((x) => x.id === id);
               return (
                 <div key={id} className="card an-tile" title={c.hint}>
-                  <span className="muted small">{c.label}</span>
+                  <span className="muted small">{c.icon} {c.label}</span>
                   <strong>{fmt(sums[id])}</strong>
                 </div>
               );
@@ -207,7 +207,7 @@ export default function AnalyticsPanel({ code, goGeneral }) {
           </span>
         </label>
         <div className="admin-shortcuts">
-          <a href={`https://${code}.goatcounter.com`} target="_blank" rel="noopener noreferrer">Full GoatCounter dashboard ↗</a>
+          <a href={`https://${code}.goatcounter.com`} target="_blank" rel="noopener noreferrer">📈 Full GoatCounter dashboard</a>
           <button className="admin-link" onClick={() => { try { localStorage.removeItem(KEY_STORE); } catch {} setApiKey(""); setData(null); }}>
             Disconnect key
           </button>
