@@ -7,6 +7,7 @@ const KEY_STORE = "gc_api_key";
 
 // What each event category means, in the order shown on the dashboard.
 const categories = [
+  { id: "buy", label: "Buy clicks", icon: "💎", hint: "Clicked “Buy” on premium source code" },
   { id: "order", label: "Order clicks", icon: "🛒", hint: "“Order now” on a service (opens WhatsApp)" },
   { id: "checkout", label: "Checkout clicks", icon: "💳", hint: "Clicked a payment link" },
   { id: "chat", label: "WhatsApp chats", icon: "💬", hint: "Opened a chat with you" },
@@ -124,7 +125,7 @@ export default function AnalyticsPanel({ code, goGeneral }) {
   }
 
   const sums = data ? sumByCategory(data.events) : {};
-  const topTiles = ["order", "checkout", "chat", "quote", "code", "newsletter"];
+  const topTiles = ["buy", "order", "chat", "quote", "code", "newsletter"];
 
   return (
     <>

@@ -513,7 +513,7 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .admin-main { padding: 32px clamp(16px, 4vw, 48px) 120px; min-width: 0; }
 .admin-title { font-size: 1.7rem; margin-bottom: 4px; }
 .admin-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
-.admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 24px 0; }
+.admin-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 24px 0; }
 .admin-stat { display: flex; flex-direction: column; gap: 4px; text-align: left; cursor: pointer; font: inherit; color: var(--text); }
 .admin-stat strong { font-size: 2rem; }
 .admin-block { margin-bottom: 18px; display: grid; gap: 14px; }
@@ -636,3 +636,19 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .an-cat { display: flex; align-items: center; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); }
 .an-cat div { flex: 1; display: flex; flex-direction: column; line-height: 1.35; }
 .an-cat b { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+
+/* Premium source code */
+.product { display: flex; flex-direction: column; }
+.product .btn { margin-top: auto; text-align: center; }
+.product-thumb {
+  position: relative; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; margin-bottom: 16px; display: grid; place-items: center;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 25%, transparent), color-mix(in srgb, var(--accent-2) 20%, transparent));
+}
+.product-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.product:hover .product-thumb img { transform: scale(1.05); }
+.product-thumb > span:first-child { font-size: 3rem; }
+.product-price {
+  position: absolute; top: 10px; right: 10px; padding: 4px 12px; border-radius: 99px; font-weight: 800;
+  background: var(--accent); color: var(--on-accent); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+.product-demo { text-align: center; margin-top: 10px; font-size: 0.88rem; font-weight: 600; }

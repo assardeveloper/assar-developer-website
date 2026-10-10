@@ -227,5 +227,44 @@
       "a": "Yes, I work with clients worldwide and communicate in English over email, WhatsApp, Zoom or Google Meet."
     }
   ],
-  "videoCode": {}
+  "videoCode": {},
+  "products": [
+    {
+      "name": "Onboarding App UI",
+      "price": "$3",
+      "desc": "Beautiful animated onboarding screens in Flutter. Clean code, ready to drop into your app.",
+      "features": [
+        "Full Flutter source code",
+        "Assets included",
+        "Free updates"
+      ],
+      "video": "",
+      "buyUrl": "",
+      "hidden": false
+    },
+    {
+      "name": "Spedah Login & Sign Up UI",
+      "price": "$3",
+      "desc": "Modern login and sign-up screens with smooth transitions.",
+      "features": [
+        "Full Flutter source code",
+        "Assets included",
+        "Free updates"
+      ],
+      "video": "",
+      "buyUrl": "",
+      "hidden": false
+    },
+    {
+      "name": "Third project",
+      "price": "$3",
+      "desc": "Add the details in Admin → Products.",
+      "features": [
+        "Full Flutter source code"
+      ],
+      "video": "",
+      "buyUrl": "",
+      "hidden": true
+    }
+  ]
 }

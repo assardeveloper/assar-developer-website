@@ -29,6 +29,7 @@ export function buildContent(c) {
   return {
     site: { ...c.site, ...fixed, stats: c.stats ?? [] },
     quickServices: (c.quickServices ?? []).filter((s) => !s.hidden),
+    products: (c.products ?? []).filter((p) => !p.hidden),
     packages: c.packages ?? [],
     projects: (c.projects ?? []).filter((p) => !p.hidden),
     faqs: c.faqs ?? [],

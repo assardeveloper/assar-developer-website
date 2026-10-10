@@ -1,6 +1,7 @@
 import { site } from "@/site.config";
 import ServiceCards from "../components/ServiceCards";
 import FreeCode from "../components/FreeCode";
+import PaidCode from "../components/PaidCode";
 import Newsletter from "../components/Newsletter";
 
 export const metadata = {
@@ -32,7 +33,15 @@ export default function Shop() {
         </div>
       </section>
 
-      <section className="section section-alt" id="code">
+      <section className="section section-alt" id="premium">
+        <div className="container">
+          <h2 className="reveal">Premium source code 💎</h2>
+          <p className="muted section-lead reveal">Complete Flutter projects, ready to run. Pay once, get the full code.</p>
+          <PaidCode />
+        </div>
+      </section>
+
+      <section className="section" id="code">
         <div className="container">
           <h2 className="reveal">Free Flutter UI source code 🎁</h2>
           <p className="muted section-lead reveal">The exact code from my videos, free on GitHub.</p>

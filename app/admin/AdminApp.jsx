@@ -11,6 +11,7 @@ const tabs = [
   { id: "dashboard", label: "Dashboard", icon: "🏠" },
   { id: "analytics", label: "Analytics", icon: "📈" },
   { id: "general", label: "General", icon: "⚙️" },
+  { id: "products", label: "Products", icon: "💎" },
   { id: "services", label: "Quick services", icon: "⚡" },
   { id: "packages", label: "Packages", icon: "📦" },
   { id: "projects", label: "Projects", icon: "💼" },
@@ -279,6 +280,25 @@ function Dashboard({ token, onLogout }) {
             {tab === "dashboard" && <Overview data={data} setSite={setSite} go={setTab} />}
             {tab === "analytics" && <AnalyticsPanel code={data.site.goatcounter?.trim()} goGeneral={() => setTab("general")} />}
             {tab === "general" && <General site={data.site} setSite={setSite} />}
+            {tab === "products" && (
+              <ListEditor
+                title="Products"
+                hint="Source code you sell. Leave Payment link empty and buyers message you on WhatsApp; you send JazzCash / Easypaisa / bank details there."
+                items={data.products ?? []}
+                onChange={(v) => set("products", v)}
+                titleKey="name"
+                newItem={{ name: "New project", price: "$3", desc: "", features: ["Full Flutter source code"], video: "", buyUrl: "", hidden: false }}
+                fields={[
+                  { key: "name", label: "Name" },
+                  { key: "price", label: "Price", short: true },
+                  { key: "desc", label: "Description", type: "textarea" },
+                  { key: "features", label: "What's included (one per line)", type: "lines" },
+                  { key: "video", label: "YouTube demo link (shows the thumbnail)" },
+                  { key: "buyUrl", label: "Payment link (optional, e.g. Lemon Squeezy)" },
+                  { key: "hidden", label: "Hide from website", type: "checkbox" },
+                ]}
+              />
+            )}
             {tab === "services" && (
               <ListEditor
                 title="Quick services"
@@ -388,6 +408,7 @@ function Dashboard({ token, onLogout }) {
 
 function Overview({ data, setSite, go }) {
   const cards = [
+    { label: "Products for sale", value: (data.products ?? []).filter((p) => !p.hidden).length, tab: "products" },
     { label: "Quick services", value: data.quickServices.filter((s) => !s.hidden).length, tab: "services" },
     { label: "Packages", value: data.packages.length, tab: "packages" },
     { label: "Projects", value: data.projects.filter((p) => !p.hidden).length, tab: "projects" },

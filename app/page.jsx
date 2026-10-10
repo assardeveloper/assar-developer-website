@@ -11,6 +11,7 @@ import About from "./components/About";
 import Marquee from "./components/Marquee";
 import ServiceCards from "./components/ServiceCards";
 import FreeCode from "./components/FreeCode";
+import PaidCode from "./components/PaidCode";
 import Newsletter from "./components/Newsletter";
 import { getVideos } from "@/lib/youtube";
 
@@ -114,7 +115,10 @@ export default async function Home() {
 
       <section className="section">
         <div className="container">
-          <h2 className="reveal">Free source code 🎁</h2>
+          <h2 className="reveal">Premium source code 💎</h2>
+          <p className="muted section-lead reveal">Complete Flutter projects for just a few dollars. Pay once, get the full code.</p>
+          <PaidCode />
+          <h2 className="reveal" style={{ marginTop: 64 }}>Free source code 🎁</h2>
           <p className="muted section-lead reveal">The code from my videos, free on GitHub. Learn from it, use it in your apps.</p>
           <FreeCode />
         </div>
