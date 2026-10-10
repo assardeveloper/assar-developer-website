@@ -11,18 +11,28 @@ export default function Footer() {
   if (pathname.startsWith("/admin")) return null;
   return (
     <footer className="footer">
-      <div className="container footer-inner">
+      <div className="container footer-grid">
         <div>
-          <strong>{site.name}</strong>
-          <p className="muted">Flutter apps for iOS, Android & Web.</p>
-          <p className="muted">
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-          </p>
+          <p className="footer-name">{site.name}</p>
+          <p className="muted">Flutter apps for iOS, Android & web.</p>
         </div>
-        <SocialLinks />
+        <div>
+          <p className="eyebrow-sm">Contact</p>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          {site.whatsapp && (
+            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer">
+              WhatsApp ↗
+            </a>
+          )}
+        </div>
+        <div>
+          <p className="eyebrow-sm">Elsewhere</p>
+          <SocialLinks />
+        </div>
       </div>
-      <div className="container muted small footer-bottom">
-        © {new Date().getFullYear()} {site.owner}. <Link href="/hire/">Start a project →</Link>
+      <div className="container footer-bottom muted small">
+        <span>© {new Date().getFullYear()} {site.owner}</span>
+        <Link href="/hire/">Start a project →</Link>
       </div>
     </footer>
   );

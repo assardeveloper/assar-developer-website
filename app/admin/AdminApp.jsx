@@ -263,8 +263,8 @@ function Dashboard({ token, onLogout }) {
           ))}
         </nav>
         <div className="admin-side-foot">
-          <a href="/" target="_blank" rel="noopener noreferrer">↗ View website</a>
-          <button onClick={onLogout}>⎋ Log out</button>
+          <a href="/" target="_blank" rel="noopener noreferrer">View website ↗</a>
+          <button onClick={onLogout}>Log out</button>
         </div>
       </aside>
 
@@ -416,7 +416,7 @@ function Overview({ data, setSite, go }) {
   ];
   return (
     <>
-      <h1 className="admin-title">Welcome back, {data.site.owner.split(" ")[0]} 👋</h1>
+      <h1 className="admin-title">Welcome back, {data.site.owner.split(" ")[0]}</h1>
       <p className="muted">Manage everything on your website. Changes go live 1–5 minutes after you save.</p>
 
       <div className="admin-stats">
@@ -447,12 +447,12 @@ function Overview({ data, setSite, go }) {
       <div className="card admin-block">
         <h3>Shortcuts</h3>
         <div className="admin-shortcuts">
-          <button className="admin-chip" onClick={() => go("analytics")}>📈 Analytics</button>
-          <a href="/" target="_blank" rel="noopener noreferrer">🌐 Website</a>
-          <a href={fixed.social.youtube} target="_blank" rel="noopener noreferrer">▶️ YouTube</a>
-          <a href={fixed.social.github} target="_blank" rel="noopener noreferrer">🐙 GitHub</a>
-          <a href={`https://wa.me/${data.site.whatsapp}`} target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
-          <a href={`https://github.com/${fixed.githubUser}/${fixed.githubRepo}/commits/main`} target="_blank" rel="noopener noreferrer">🕑 Change history</a>
+          <button className="admin-chip" onClick={() => go("analytics")}>Analytics</button>
+          <a href="/" target="_blank" rel="noopener noreferrer">Website ↗</a>
+          <a href={fixed.social.youtube} target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+          <a href={fixed.social.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a href={`https://wa.me/${data.site.whatsapp}`} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a>
+          <a href={`https://github.com/${fixed.githubUser}/${fixed.githubRepo}/commits/main`} target="_blank" rel="noopener noreferrer">Change history ↗</a>
         </div>
       </div>
     </>

@@ -4,12 +4,14 @@ const labels = { youtube: "YouTube", instagram: "Instagram", tiktok: "TikTok", f
 
 export default function SocialLinks() {
   return (
-    <div className="social">
+    <ul className="social">
       {Object.entries(site.social).map(([key, url]) => (
-        <a key={key} href={url} target="_blank" rel="noopener noreferrer" data-track={`social:${key}`}>
-          {labels[key] ?? key}
-        </a>
+        <li key={key}>
+          <a href={url} target="_blank" rel="noopener noreferrer" data-track={`social:${key}`}>
+            {labels[key] ?? key} ↗
+          </a>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }

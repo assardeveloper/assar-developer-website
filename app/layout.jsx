@@ -1,4 +1,5 @@
 import "./globals.css";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { site } from "@/site.config";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -8,8 +9,12 @@ import Announcement from "./components/Announcement";
 import Analytics from "./components/Analytics";
 import { ContentProvider } from "@/lib/content";
 
-// Runs before the page paints so there is no flash of the wrong theme.
-const themeScript = `try{var t=localStorage.getItem("theme");if(!t)t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}`;
+const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif" });
+
+// Runs before the page paints so there is no flash of the wrong theme. Dark unless the visitor chose light.
+const themeScript = `try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"dark"}catch(e){document.documentElement.dataset.theme="dark"}`;
 
 export const metadata = {
   metadataBase: new URL(site.url),
@@ -29,7 +34,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${sans.variable} ${mono.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

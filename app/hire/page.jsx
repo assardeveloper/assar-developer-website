@@ -1,8 +1,10 @@
 import { site } from "@/site.config";
-import Years from "../components/Years";
-import Faqs from "../components/Faqs";
 import Packages from "../components/Packages";
 import QuoteForm from "../components/QuoteForm";
+import Years from "../components/Years";
+import Faqs from "../components/Faqs";
+import PageHero from "../components/PageHero";
+import SectionHead from "../components/SectionHead";
 
 export const metadata = {
   title: "Hire a Flutter Developer",
@@ -10,57 +12,49 @@ export const metadata = {
 };
 
 const steps = [
-  { n: "1", title: "Tell me your idea", desc: "Fill in the form. I reply within 24 hours." },
-  { n: "2", title: "Get a clear quote", desc: "Fixed price, timeline and milestones. No surprises." },
-  { n: "3", title: "Watch it come to life", desc: "Weekly builds you can test on your own phone." },
-  { n: "4", title: "Launch", desc: "I publish to the stores and hand over all source code." },
+  { title: "Tell me your idea", desc: "Fill in the form below. I reply within 24 hours." },
+  { title: "Get a clear quote", desc: "Fixed price, timeline and milestones. No surprises." },
+  { title: "Watch it come together", desc: "Weekly builds you can test on your own phone." },
+  { title: "Launch", desc: "I publish to the stores and hand over all the source code." },
 ];
 
 export default function Hire() {
   return (
     <>
-      <section className="hero hero-small">
-        <div className="hero-bg" aria-hidden="true"><span className="blob b1" /><span className="blob b2" /></div>
-        <div className="container">
-          <p className="eyebrow">Hire me</p>
-          <h1>
-            Let's build your <span className="accent">app</span>.
-          </h1>
-          <p className="lead">
-            <Years />+ years building Flutter apps for startups and businesses. Clear
-            prices, weekly updates, and you own all the code.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        label="Hire me"
+        title={<>Let's build <em>your</em> app.</>}
+        intro={<><Years />+ years building Flutter apps for startups and businesses. Clear prices, weekly updates, and you own all the code.</>}
+      />
 
       <section className="section" id="packages">
         <div className="container">
-          <h2>Packages</h2>
+          <SectionHead n="01" label="Pricing" title="Packages" />
           <Packages />
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="container">
-          <h2>How it works</h2>
-          <div className="grid grid-4">
-            {steps.map((s) => (
-              <div key={s.n} className="card reveal" style={{ "--d": `${Number(s.n) * 80}ms` }}>
-                <span className="step">{s.n}</span>
+          <SectionHead n="02" label="Process" title="How it works" />
+          <ol className="steps">
+            {steps.map((s, i) => (
+              <li key={s.title} className="reveal" style={{ "--d": `${i * 60}ms` }}>
+                <span className="num">{String(i + 1).padStart(2, "0")}</span>
                 <h3>{s.title}</h3>
                 <p className="muted">{s.desc}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
       <section className="section" id="quote">
-        <div className="container narrow">
-          <div className="quote-head">
-            <img src="/assar-avatar.jpg" alt={site.owner} />
-            <div>
-              <h2>Get a free quote</h2>
+        <div className="container quote-grid">
+          <div>
+            <SectionHead n="03" label="Contact" title="Get a free quote" />
+            <div className="quote-person">
+              <img src="/assar-avatar.jpg" alt={site.owner} />
               <p className="muted">You'll hear back from me personally, usually within a few hours.</p>
             </div>
           </div>
@@ -68,9 +62,9 @@ export default function Hire() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="container narrow">
-          <h2>Questions</h2>
+          <SectionHead n="04" label="FAQ" title="Questions" />
           <Faqs />
         </div>
       </section>

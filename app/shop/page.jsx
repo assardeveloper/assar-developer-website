@@ -3,6 +3,8 @@ import ServiceCards from "../components/ServiceCards";
 import FreeCode from "../components/FreeCode";
 import PaidCode from "../components/PaidCode";
 import Newsletter from "../components/Newsletter";
+import PageHero from "../components/PageHero";
+import SectionHead from "../components/SectionHead";
 
 export const metadata = {
   title: "Shop: Flutter Services & Source Code",
@@ -12,49 +14,35 @@ export const metadata = {
 export default function Shop() {
   return (
     <>
-      <section className="hero hero-small">
-        <div className="hero-bg" aria-hidden="true"><span className="blob b1" /><span className="blob b2" /></div>
-        <div className="container">
-          <p className="eyebrow rise">Shop</p>
-          <h1 className="reveal" style={{ "--d": "80ms" }}>
-            Fast help. <span className="accent">Fixed prices.</span>
-          </h1>
-          <p className="lead rise" style={{ "--d": "160ms" }}>
-            No long contracts. Pick what you need, pay once, and get it done in days, not months.
-          </p>
-        </div>
-      </section>
+      <PageHero label="Shop" title={<>Fast help, <em>fixed prices.</em></>} intro="No long contracts. Pick what you need, pay once, and get it done in days." />
 
       <section className="section" id="services">
         <div className="container">
-          <h2 className="reveal">Quick services</h2>
-          <p className="muted section-lead reveal">Delivered by me personally, with 6+ years of Flutter experience.</p>
+          <SectionHead n="01" label="Services" title="Quick services" intro="Done by me personally." />
           <ServiceCards />
         </div>
       </section>
 
-      <section className="section section-alt" id="premium">
+      <section className="section" id="premium">
         <div className="container">
-          <h2 className="reveal">Premium source code 💎</h2>
-          <p className="muted section-lead reveal">Complete Flutter projects, ready to run. Pay once, get the full code.</p>
+          <SectionHead n="02" label="Source code" title="Complete Flutter projects" intro="Ready to run. Pay once, get the full code." />
           <PaidCode />
         </div>
       </section>
 
       <section className="section" id="code">
         <div className="container">
-          <h2 className="reveal">Free Flutter UI source code 🎁</h2>
-          <p className="muted section-lead reveal">The exact code from my videos, free on GitHub.</p>
+          <SectionHead n="03" label="Free" title="Free code from my videos" />
           <FreeCode />
         </div>
       </section>
 
       <section className="section">
-        <div className="container narrow">
+        <div className="container">
           <Newsletter />
           {site.tipUrl && (
-            <p className="center muted" style={{ marginTop: 32 }}>
-              Like my free content? <a href={site.tipUrl} target="_blank" rel="noopener noreferrer">Buy me a coffee ☕</a>
+            <p className="muted" style={{ marginTop: 32 }}>
+              Like the free content? <a href={site.tipUrl} target="_blank" rel="noopener noreferrer">Buy me a coffee ↗</a>
             </p>
           )}
         </div>

@@ -1,47 +1,37 @@
-import Link from "next/link";
-import { site } from "@/site.config";
 import Years from "./Years";
+import SectionHead from "./SectionHead";
 
 const reasons = [
-  { icon: "💬", title: "You talk to me directly", desc: "No agency, no middlemen. The person you message is the person writing your code." },
-  { icon: "⚡", title: "Fast & reliable", desc: "Weekly builds you can test on your phone, and replies within 24 hours." },
-  { icon: "🎯", title: "Design-obsessed", desc: "Smooth animations and pixel-perfect UI. It's what my videos are all about." },
-  { icon: "🔒", title: "You own everything", desc: "Full source code, clean structure and documentation at handover." },
+  { title: "You talk to me directly", desc: "No agency, no middlemen. The person you message is the person writing your code." },
+  { title: "Steady progress", desc: "Weekly builds you can test on your own phone, and replies within a day." },
+  { title: "Care for the details", desc: "Smooth motion and pixel-accurate UI. It's what my videos are about." },
+  { title: "You own everything", desc: "Full source code, clean structure and documentation at handover." },
 ];
 
 export default function About() {
   return (
     <section className="section" id="about">
-      <div className="container about-grid">
-        <div className="about-photo reveal">
-          <img src="/assar.jpg" alt={site.owner} loading="lazy" />
-          <div className="about-photo-tag">
-            <span className="pulse-dot" /> Online & taking projects
+      <div className="container">
+        <SectionHead n="01" label="About" title="A developer who sweats the small stuff" />
+        <div className="about-grid">
+          <div className="about-text reveal">
+            <p className="lead">
+              I'm a Flutter developer from Pakistan with <Years />+ years of experience building apps for
+              clients around the world: delivery platforms, dating apps, marketplaces, fitness and business tools.
+            </p>
+            <p className="muted">
+              I also share short Flutter UI builds with thousands of developers on YouTube, TikTok and Instagram.
+              When you hire me, your app gets the same attention to detail.
+            </p>
           </div>
-        </div>
-        <div>
-          <p className="eyebrow reveal">About me</p>
-          <h2 className="reveal">Hi, I'm Assar 👋</h2>
-          <p className="lead reveal">
-            I'm a Flutter developer from Pakistan with <Years />+ years of experience building apps
-            for clients around the world: delivery platforms, dating apps, marketplaces, fitness and business apps.
-          </p>
-          <p className="muted reveal">
-            I also share quick Flutter UI builds with thousands of developers on YouTube, TikTok and Instagram.
-            When you hire me, you get the same attention to detail in your app.
-          </p>
-          <div className="reasons">
+          <ul className="reasons">
             {reasons.map((r, i) => (
-              <div key={r.title} className="reason reveal" style={{ "--d": `${i * 80}ms` }}>
-                <span className="reason-icon">{r.icon}</span>
-                <div>
-                  <strong>{r.title}</strong>
-                  <p className="muted small">{r.desc}</p>
-                </div>
-              </div>
+              <li key={r.title} className="reveal" style={{ "--d": `${i * 60}ms` }}>
+                <h3>{r.title}</h3>
+                <p className="muted">{r.desc}</p>
+              </li>
             ))}
-          </div>
-          <Link href="/hire/#quote" data-track="hire:about" className="btn shine reveal">Work with me</Link>
+          </ul>
         </div>
       </div>
     </section>
