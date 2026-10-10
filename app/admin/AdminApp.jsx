@@ -294,7 +294,7 @@ function Dashboard({ token, onLogout }) {
                   { key: "desc", label: "Description", type: "textarea" },
                   { key: "features", label: "What's included (one per line)", type: "lines" },
                   { key: "video", label: "YouTube demo link (shows the thumbnail)" },
-                  { key: "buyUrl", label: "Payment link (optional, e.g. Lemon Squeezy)" },
+                  { key: "buyUrl", label: "Lemon Squeezy checkout link (card payments + automatic download)" },
                   { key: "hidden", label: "Hide from website", type: "checkbox" },
                 ]}
               />

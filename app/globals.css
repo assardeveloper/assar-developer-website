@@ -652,3 +652,4 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
   background: var(--accent); color: var(--on-accent); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
 }
 .product-demo { text-align: center; margin-top: 10px; font-size: 0.88rem; font-weight: 600; }
+.product-secure { text-align: center; margin: 8px 0 0; }

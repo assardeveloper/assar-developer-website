@@ -9,7 +9,7 @@ const KEY_STORE = "gc_api_key";
 const categories = [
   { id: "buy", label: "Buy clicks", icon: "💎", hint: "Clicked “Buy” on premium source code" },
   { id: "order", label: "Order clicks", icon: "🛒", hint: "“Order now” on a service (opens WhatsApp)" },
-  { id: "checkout", label: "Checkout clicks", icon: "💳", hint: "Clicked a payment link" },
+  { id: "checkout", label: "Checkout clicks", icon: "💳", hint: "Opened card checkout (real purchase attempts)" },
   { id: "chat", label: "WhatsApp chats", icon: "💬", hint: "Opened a chat with you" },
   { id: "quote", label: "Quote requests", icon: "📝", hint: "Sent the Hire Me form" },
   { id: "code", label: "Code clicks", icon: "🎁", hint: "Opened free source code" },
@@ -125,7 +125,7 @@ export default function AnalyticsPanel({ code, goGeneral }) {
   }
 
   const sums = data ? sumByCategory(data.events) : {};
-  const topTiles = ["buy", "order", "chat", "quote", "code", "newsletter"];
+  const topTiles = ["checkout", "buy", "order", "chat", "quote", "code"];
 
   return (
     <>
