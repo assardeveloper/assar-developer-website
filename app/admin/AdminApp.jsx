@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { fixed } from "@/site.config";
 import { verifyToken, loadContent, saveContent } from "@/lib/github-admin";
-
-const TOKEN_KEY = "assar_admin_key";
+import { lockSecret, unlockSecret } from "@/lib/crypto";
 
 const tabs = [
   { id: "dashboard", label: "Dashboard", icon: "🏠" },
@@ -17,43 +16,78 @@ const tabs = [
   { id: "videos", label: "Video code", icon: "🎬" },
 ];
 
+// The GitHub key, locked with your password, is stored only on this device.
+const LOCK_KEY = "assar_admin_lock";
+// While logged in, the unlocked key is kept for this browser tab only.
+const SESSION_KEY = "assar_admin_session";
+// Older versions stored the key unlocked; it's moved into the locked format on first use.
+const OLD_KEY = "assar_admin_key";
+
+const store = {
+  get: (s, k) => { try { return s.getItem(k); } catch { return null; } },
+  set: (s, k, v) => { try { s.setItem(k, v); } catch {} },
+  del: (s, k) => { try { s.removeItem(k); } catch {} },
+};
+
 export default function AdminApp() {
-  const [token, setToken] = useState(null);
-  const [ready, setReady] = useState(false);
+  const [state, setState] = useState({ ready: false });
 
   useEffect(() => {
-    try { setToken(localStorage.getItem(TOKEN_KEY)); } catch {}
-    setReady(true);
+    const session = store.get(sessionStorage, SESSION_KEY);
+    const lock = store.get(localStorage, LOCK_KEY);
+    const old = store.get(localStorage, OLD_KEY);
+    setState({ ready: true, token: session, lock: lock ? JSON.parse(lock) : null, oldKey: old });
   }, []);
 
-  function logout() {
-    try { localStorage.removeItem(TOKEN_KEY); } catch {}
-    setToken(null);
+  function loggedIn(token) {
+    store.set(sessionStorage, SESSION_KEY, token);
+    store.del(localStorage, OLD_KEY);
+    setState((s) => ({ ...s, token, lock: JSON.parse(store.get(localStorage, LOCK_KEY) || "null"), oldKey: null }));
   }
 
-  if (!ready) return <div className="admin-center"><div className="spinner" /></div>;
-  return token ? <Dashboard token={token} onLogout={logout} /> : <Login onLogin={setToken} />;
+  function logout() {
+    store.del(sessionStorage, SESSION_KEY);
+    setState((s) => ({ ...s, token: null }));
+  }
+
+  function forgetDevice() {
+    store.del(localStorage, LOCK_KEY);
+    store.del(sessionStorage, SESSION_KEY);
+    setState((s) => ({ ...s, token: null, lock: null }));
+  }
+
+  if (!state.ready) return <div className="admin-center"><div className="spinner" /></div>;
+  if (state.token) return <Dashboard token={state.token} onLogout={logout} />;
+  if (state.lock) return <PasswordLogin lock={state.lock} onLogin={loggedIn} onReset={forgetDevice} />;
+  return <Setup initialKey={state.oldKey ?? ""} onDone={loggedIn} />;
 }
 
-/* ───────────── Login ───────────── */
+/* ───────────── Password login ───────────── */
 
-function Login({ onLogin }) {
-  const [key, setKey] = useState("");
+function PasswordLogin({ lock, onLogin, onReset }) {
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-  const [help, setHelp] = useState(false);
+  const [fails, setFails] = useState(0);
 
   async function submit(e) {
     e.preventDefault();
     setBusy(true);
     setError("");
+    // Each wrong attempt waits a little longer.
+    if (fails > 0) await new Promise((r) => setTimeout(r, Math.min(fails, 10) * 700));
+    const token = await unlockSecret(lock, password);
+    if (!token) {
+      setFails((f) => f + 1);
+      setError("Wrong password. Try again.");
+      setBusy(false);
+      return;
+    }
     try {
-      await verifyToken(key.trim());
-      try { localStorage.setItem(TOKEN_KEY, key.trim()); } catch {}
-      onLogin(key.trim());
+      await verifyToken(token);
+      onLogin(token);
     } catch (err) {
-      setError(err.message);
-    } finally {
+      setError(`${err.message} Your GitHub key may have expired. Use “Forgot password” to set up a new one.`);
       setBusy(false);
     }
   }
@@ -63,32 +97,94 @@ function Login({ onLogin }) {
       <form className="card admin-login" onSubmit={submit}>
         <img src="/assar-avatar.jpg" alt="" className="admin-login-avatar" />
         <h1>Admin login</h1>
-        <p className="muted">Only the website owner can log in.</p>
+        <p className="muted">Welcome back! Enter your password.</p>
         <label className="admin-field">
-          <span>Your GitHub access key</span>
-          <input type="password" value={key} onChange={(e) => setKey(e.target.value)} placeholder="github_pat_…" required autoComplete="current-password" />
+          <span>Password</span>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required autoFocus autoComplete="current-password" />
         </label>
         {error && <p className="error">{error}</p>}
-        <button className="btn shine" disabled={busy}>{busy ? "Checking…" : "Log in"}</button>
-        <button type="button" className="admin-link" onClick={() => setHelp(!help)}>
-          {help ? "Hide" : "How do I get my access key?"}
+        <button className="btn shine" disabled={busy}>{busy ? "Unlocking…" : "Log in"}</button>
+        <button
+          type="button"
+          className="admin-link"
+          onClick={() => confirm("This removes the saved login from this device. You'll need your GitHub key to set a new password. Continue?") && onReset()}
+        >
+          Forgot password?
         </button>
-        {help && (
-          <ol className="admin-help">
-            <li>
-              Open{" "}
-              <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">
-                GitHub → New fine-grained token
-              </a>{" "}
-              (log in as <b>{fixed.githubUser}</b>).
-            </li>
-            <li>Name: <b>Website admin</b>. Expiration: the longest option.</li>
-            <li>Repository access → <b>Only select repositories</b> → <b>{fixed.githubRepo}</b>.</li>
-            <li>Permissions → Repository permissions → <b>Contents</b> → <b>Read and write</b>.</li>
-            <li>Click <b>Generate token</b>, copy it and paste it above.</li>
-            <li className="muted">The key is saved only in this browser. Use it only on your own devices.</li>
-          </ol>
-        )}
+      </form>
+    </section>
+  );
+}
+
+/* ───────────── First-time setup on this device ───────────── */
+
+function Setup({ initialKey, onDone }) {
+  const [key, setKey] = useState(initialKey);
+  const [password, setPassword] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function submit(e) {
+    e.preventDefault();
+    setError("");
+    if (password.length < 8) return setError("Use at least 8 characters for your password.");
+    if (password !== confirmPw) return setError("The passwords don't match.");
+    setBusy(true);
+    try {
+      await verifyToken(key.trim());
+      const lock = await lockSecret(key.trim(), password);
+      store.set(localStorage, LOCK_KEY, JSON.stringify(lock));
+      onDone(key.trim());
+    } catch (err) {
+      setError(err.message);
+      setBusy(false);
+    }
+  }
+
+  return (
+    <section className="admin-center">
+      <form className="card admin-login admin-setup" onSubmit={submit}>
+        <img src="/assar-avatar.jpg" alt="" className="admin-login-avatar" />
+        <h1>Set up admin on this device</h1>
+        <p className="muted">One time only. After this, you log in with just your password.</p>
+
+        <div className="admin-step">
+          <span className="step">1</span>
+          <div>
+            <strong>Paste your GitHub key</strong>
+            <details className="admin-help-box">
+              <summary>How do I get it?</summary>
+              <ol className="admin-help">
+                <li>
+                  Open{" "}
+                  <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">
+                    GitHub → New fine-grained token
+                  </a>{" "}
+                  (logged in as <b>{fixed.githubUser}</b>).
+                </li>
+                <li>Name: <b>Website admin</b>. Expiration: the longest option.</li>
+                <li>Repository access → <b>Only select repositories</b> → <b>{fixed.githubRepo}</b>.</li>
+                <li>Permissions → Repository permissions → <b>Contents</b> → <b>Read and write</b>.</li>
+                <li>Click <b>Generate token</b> and copy it.</li>
+              </ol>
+            </details>
+            <input type="password" value={key} onChange={(e) => setKey(e.target.value)} placeholder="github_pat_…" required autoComplete="off" />
+          </div>
+        </div>
+
+        <div className="admin-step">
+          <span className="step">2</span>
+          <div>
+            <strong>Choose your admin password</strong>
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" required autoComplete="new-password" />
+            <input type="password" value={confirmPw} onChange={(e) => setConfirmPw(e.target.value)} placeholder="Type it again" required autoComplete="new-password" />
+          </div>
+        </div>
+
+        {error && <p className="error">{error}</p>}
+        <button className="btn shine" disabled={busy}>{busy ? "Setting up…" : "Save & log in"}</button>
+        <p className="muted small">Your key is locked with your password and saved only on this device. It's never uploaded.</p>
       </form>
     </section>
   );
