@@ -8,6 +8,8 @@ const KEY_STORE = "gc_api_key";
 // What each event category means, in the order shown on the dashboard.
 const categories = [
   { id: "buy", label: "Buy clicks", icon: "💎", hint: "Clicked “Buy” on premium source code" },
+  { id: "sponsorship", label: "Sponsor page actions", icon: "💰", hint: "Brands picking a package or sending a sponsorship request" },
+  { id: "sponsor", label: "Sponsor link clicks", icon: "📣", hint: "Clicks on a sponsor’s “Sponsored” spot (report these to sponsors)" },
   { id: "order", label: "Order clicks", icon: "🛒", hint: "“Order now” on a service (opens WhatsApp)" },
   { id: "checkout", label: "Checkout clicks", icon: "💳", hint: "Opened card checkout (real purchase attempts)" },
   { id: "chat", label: "WhatsApp chats", icon: "💬", hint: "Opened a chat with you" },

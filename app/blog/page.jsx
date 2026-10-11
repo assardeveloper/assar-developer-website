@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getPosts, formatDate } from "@/lib/posts";
+import SponsorSlot from "../components/SponsorSlot";
 
 export const metadata = {
   title: "Flutter Blog & Tutorials",
@@ -36,6 +37,7 @@ export default function Blog() {
             ))}
           </div>
           {posts.length === 0 && <p className="muted">Articles coming soon.</p>}
+          <SponsorSlot />
         </div>
       </section>
     </>

@@ -34,6 +34,11 @@ export function buildContent(c) {
     projects: (c.projects ?? []).filter((p) => !p.hidden),
     faqs: c.faqs ?? [],
     videoCode: c.videoCode ?? {},
+    sponsorAudience: (c.sponsorAudience ?? []).filter((a) => a.followers || a.avgViews),
+    sponsorPackages: c.sponsorPackages ?? [],
+    // Sponsored spots show only until their end date ("until": "2026-11-30").
+    sponsorSlots: (c.sponsorSlots ?? []).filter((s) => !s.hidden && (!s.until || s.until >= new Date().toISOString().slice(0, 10))),
+    sponsoredVideos: c.sponsoredVideos ?? [],
   };
 }
 

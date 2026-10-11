@@ -13,6 +13,7 @@ import ServiceCards from "./components/ServiceCards";
 import FreeCode from "./components/FreeCode";
 import PaidCode from "./components/PaidCode";
 import Newsletter from "./components/Newsletter";
+import SponsorSlot from "./components/SponsorSlot";
 import { getVideos } from "@/lib/youtube";
 
 const services = [
@@ -109,6 +110,7 @@ export default async function Home() {
             <Link href="/videos/" className="btn btn-outline">All videos →</Link>
           </div>
           {videos.length > 0 && <VideoGrid videos={videos} />}
+          <SponsorSlot />
           <div style={{ marginTop: 32 }}><SocialLinks /></div>
         </div>
       </section>

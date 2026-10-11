@@ -18,6 +18,9 @@ export default function Footer() {
           <p className="muted">
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
+          <p className="muted">
+            Brands: <Link href="/sponsor/">sponsor my videos →</Link>
+          </p>
         </div>
         <SocialIcons />
       </div>

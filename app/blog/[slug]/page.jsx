@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPosts, getPost, formatDate } from "@/lib/posts";
+import SponsorSlot from "../../components/SponsorSlot";
 
 export const dynamicParams = false;
 
@@ -39,6 +40,8 @@ export default async function Post({ params }) {
             </div>
           </div>
           <div className="prose" dangerouslySetInnerHTML={{ __html: post.html }} />
+
+          <SponsorSlot />
 
           <div className="card post-cta">
             <h3>Need this in your app?</h3>

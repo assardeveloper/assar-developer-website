@@ -685,12 +685,12 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .mobile-menu .btn { margin-top: 14px; text-align: center; }
 .menu-social { justify-content: center; margin-top: 14px; }
 
-@media (max-width: 1180px) { .header-social { display: none; } }
-@media (max-width: 960px) {
+@media (max-width: 1320px) { .header-social { display: none; } }
+@media (max-width: 1080px) {
   .nav, .header-hire { display: none; }
   .menu-btn { display: flex; }
 }
-@media (min-width: 961px) { .mobile-menu { display: none; } }
+@media (min-width: 1081px) { .mobile-menu { display: none; } }
 
 /* ───────────── Blog ───────────── */
 .post-card { display: flex; flex-direction: column; color: var(--text); border-top: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); }
@@ -721,3 +721,24 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .post-cta .hero-cta { margin: 16px 0 0; }
 .post-more { display: grid; gap: 8px; }
 .post-more-link { font-weight: 600; }
+
+/* ───────────── Sponsor ───────────── */
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1000px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .grid-4 { grid-template-columns: 1fr; } }
+.aud-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.aud { display: flex; flex-direction: column; gap: 6px; color: var(--text); }
+.aud:hover { text-decoration: none; }
+.aud-platform { font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.8rem; }
+.aud-num { color: var(--muted); }
+.aud-num strong { font-size: 1.9rem; color: var(--text); margin-right: 4px; }
+.why-grid .card h3 { font-size: 1.05rem; }
+.sp-grid .package .btn { margin-top: auto; text-align: center; }
+.sponsor-slots { display: grid; gap: 12px; margin-top: 32px; }
+.sponsor-slot { display: flex; align-items: center; gap: 16px; color: var(--text); border-style: dashed; }
+.sponsor-slot:hover { text-decoration: none; }
+.sponsor-slot > div { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sponsor-logo { width: 52px; height: 52px; border-radius: 12px; object-fit: contain; background: #fff; padding: 6px; flex: none; }
+.sponsor-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.sponsor-cta { color: var(--accent); font-weight: 700; white-space: nowrap; }
+@media (max-width: 560px) { .sponsor-slot { flex-wrap: wrap; } }

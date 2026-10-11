@@ -12,6 +12,7 @@ const tabs = [
   { id: "analytics", label: "Analytics", icon: "📈" },
   { id: "general", label: "General", icon: "⚙️" },
   { id: "products", label: "Products", icon: "💎" },
+  { id: "sponsors", label: "Sponsors", icon: "💰" },
   { id: "services", label: "Quick services", icon: "⚡" },
   { id: "packages", label: "Packages", icon: "📦" },
   { id: "projects", label: "Projects", icon: "💼" },
@@ -299,6 +300,73 @@ function Dashboard({ token, onLogout }) {
                 ]}
               />
             )}
+            {tab === "sponsors" && (
+              <>
+                <ListEditor
+                  title="Active sponsors"
+                  hint="Paid “Sponsored” spots on your home page and blog. They disappear automatically after the end date."
+                  items={data.sponsorSlots ?? []}
+                  onChange={(v) => set("sponsorSlots", v)}
+                  titleKey="name"
+                  newItem={{ name: "Brand name", text: "", url: "https://", image: "", cta: "Learn more", until: "", hidden: false }}
+                  fields={[
+                    { key: "name", label: "Brand name" },
+                    { key: "until", label: "Show until (end date)", type: "date", short: true },
+                    { key: "cta", label: "Button text", short: true },
+                    { key: "text", label: "Short message", type: "textarea" },
+                    { key: "url", label: "Their link" },
+                    { key: "image", label: "Logo image link (optional)" },
+                    { key: "hidden", label: "Hide now", type: "checkbox" },
+                  ]}
+                />
+                <div style={{ height: 40 }} />
+                <ListEditor
+                  title="Audience numbers"
+                  hint="Shown on your Sponsor page. Use real numbers: sponsors check them. Leave empty to hide a platform."
+                  items={data.sponsorAudience ?? []}
+                  onChange={(v) => set("sponsorAudience", v)}
+                  titleKey="platform"
+                  newItem={{ platform: "New platform", followers: "", avgViews: "", note: "", url: "" }}
+                  fields={[
+                    { key: "platform", label: "Platform", short: true },
+                    { key: "followers", label: "Followers (e.g. 12K)", short: true },
+                    { key: "avgViews", label: "Average views (e.g. 5K)", short: true },
+                    { key: "note", label: "Note (optional)" },
+                    { key: "url", label: "Profile link" },
+                  ]}
+                />
+                <div style={{ height: 40 }} />
+                <ListEditor
+                  title="Sponsor packages"
+                  hint="What brands can buy, shown on your Sponsor page."
+                  items={data.sponsorPackages ?? []}
+                  onChange={(v) => set("sponsorPackages", v)}
+                  titleKey="name"
+                  newItem={{ name: "New package", price: "$50", desc: "", features: [], popular: false }}
+                  fields={[
+                    { key: "name", label: "Name" },
+                    { key: "price", label: "Price", short: true },
+                    { key: "desc", label: "Description", type: "textarea" },
+                    { key: "features", label: "What's included (one per line)", type: "lines" },
+                    { key: "popular", label: "Show “Best results” badge", type: "checkbox" },
+                  ]}
+                />
+                <div style={{ height: 40 }} />
+                <ListEditor
+                  title="Sponsored videos"
+                  hint="Paid videos you made for brands. Shown on your Sponsor page as proof for future sponsors."
+                  items={data.sponsoredVideos ?? []}
+                  onChange={(v) => set("sponsoredVideos", v)}
+                  titleKey="title"
+                  newItem={{ title: "Video title", brand: "", url: "" }}
+                  fields={[
+                    { key: "title", label: "Video title" },
+                    { key: "brand", label: "Brand", short: true },
+                    { key: "url", label: "YouTube link" },
+                  ]}
+                />
+              </>
+            )}
             {tab === "services" && (
               <ListEditor
                 title="Quick services"
@@ -578,7 +646,7 @@ function ListEditor({ title, hint, items, onChange, fields, titleKey, newItem })
                       key={f.key}
                       label={f.label}
                       wide={!f.short}
-                      type={f.type === "lines" || f.type === "textarea" ? "textarea" : "text"}
+                      type={f.type === "lines" || f.type === "textarea" ? "textarea" : f.type === "date" ? "date" : "text"}
                       value={
                         f.type === "lines" ? (item[f.key] ?? []).join("\n") : f.type === "csv" ? (item[f.key] ?? []).join(", ") : item[f.key] ?? ""
                       }
