@@ -16,6 +16,7 @@ const tabs = [
   { id: "services", label: "Quick services", icon: "⚡" },
   { id: "packages", label: "Packages", icon: "📦" },
   { id: "projects", label: "Projects", icon: "💼" },
+  { id: "reviews", label: "Reviews", icon: "⭐" },
   { id: "stats", label: "Stats", icon: "📊" },
   { id: "faqs", label: "FAQs", icon: "❓" },
   { id: "videos", label: "Video code", icon: "🎬" },
@@ -422,6 +423,28 @@ function Dashboard({ token, onLogout }) {
                 ]}
               />
             )}
+            {tab === "reviews" && (
+              <ListEditor
+                title="Reviews"
+                hint="Real reviews from your clients (ask them for 1–2 sentences). Shown on your home page and Hire Me page. Only add genuine reviews."
+                items={data.reviews ?? []}
+                onChange={(v) => set("reviews", v)}
+                titleKey="name"
+                newItem={{ name: "Client name", role: "", country: "", rating: "5", text: "", project: "", photo: "", source: "", link: "", hidden: false }}
+                fields={[
+                  { key: "name", label: "Client name" },
+                  { key: "role", label: "Role / company (e.g. Founder, Délé)", short: true },
+                  { key: "country", label: "Country", short: true },
+                  { key: "rating", label: "Stars (1–5)", short: true },
+                  { key: "text", label: "What they said", type: "textarea" },
+                  { key: "project", label: "Project (optional)" },
+                  { key: "photo", label: "Photo link (optional)" },
+                  { key: "source", label: "Source name (e.g. Fiverr, LinkedIn)", short: true },
+                  { key: "link", label: "Link to the original review (optional, builds trust)" },
+                  { key: "hidden", label: "Hide from website", type: "checkbox" },
+                ]}
+              />
+            )}
             {tab === "stats" && (
               <ListEditor
                 title="Stats"
@@ -480,6 +503,7 @@ function Overview({ data, setSite, go }) {
     { label: "Quick services", value: data.quickServices.filter((s) => !s.hidden).length, tab: "services" },
     { label: "Packages", value: data.packages.length, tab: "packages" },
     { label: "Projects", value: data.projects.filter((p) => !p.hidden).length, tab: "projects" },
+    { label: "Reviews", value: (data.reviews ?? []).filter((r) => !r.hidden).length, tab: "reviews" },
     { label: "Videos with code", value: Object.keys(data.videoCode ?? {}).length, tab: "videos" },
   ];
   return (
@@ -576,6 +600,7 @@ function General({ site, setSite }) {
           <Field label="Formspree form ID (optional)" value={site.formspreeId} onChange={(v) => setSite("formspreeId", v)} />
           <Field label="Tip / Buy me a coffee link (optional)" value={site.tipUrl} onChange={(v) => setSite("tipUrl", v)} />
           <Field label="GoatCounter code (for Analytics)" value={site.goatcounter} onChange={(v) => setSite("goatcounter", v.trim().toLowerCase())} placeholder="assardeveloper" />
+          <Field label="Google verification code (Search Console)" value={site.googleVerification} onChange={(v) => setSite("googleVerification", (v.match(/content="([^"]+)"/)?.[1] ?? v).trim())} placeholder="paste the code or the whole meta tag" />
         </div>
         <Field label="Short description (used by Google on the next deploy)" type="textarea" value={site.description} onChange={(v) => setSite("description", v)} />
         <Toggle label="Available for new projects" checked={site.available} onChange={(v) => setSite("available", v)} />

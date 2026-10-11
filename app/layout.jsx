@@ -18,6 +18,7 @@ export const metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  ...(site.googleVerification ? { verification: { google: site.googleVerification } } : {}),
   openGraph: {
     title: `${site.name} — Hire a Flutter Developer`,
     description: site.description,

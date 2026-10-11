@@ -1,6 +1,7 @@
 import { site } from "@/site.config";
 import Years from "../components/Years";
 import Faqs from "../components/Faqs";
+import Reviews from "../components/Reviews";
 import Packages from "../components/Packages";
 import QuoteForm from "../components/QuoteForm";
 
@@ -54,6 +55,8 @@ export default function Hire() {
           </div>
         </div>
       </section>
+
+      <Reviews title="Clients love working with me" intro="Don't just take my word for it." />
 
       <section className="section" id="quote">
         <div className="container narrow">

@@ -805,3 +805,17 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 /* White buttons: subtle hover instead of colored glow */
 :root[data-brand="black"] .btn:hover { box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12); }
 :root[data-brand="black"] .btn-outline { color: var(--text) !important; }
+
+/* ───────────── Reviews ───────────── */
+.stars { color: #fbbf24; letter-spacing: 2px; font-size: 1.05rem; }
+.stars-off { color: var(--border); }
+.rating-summary { display: flex; align-items: center; gap: 10px; }
+.rating-summary strong { font-size: 2.4rem; line-height: 1; }
+.review { display: flex; flex-direction: column; gap: 14px; margin: 0; }
+.review blockquote { margin: 0; font-size: 1.02rem; line-height: 1.65; color: var(--text); }
+.review figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--border); }
+.review figcaption img, .review-initial { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex: none; }
+.review-initial { display: grid; place-items: center; font-weight: 800; color: var(--on-accent); background: linear-gradient(135deg, var(--accent-deep), var(--accent-2)); }
+.review figcaption div { flex: 1; display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.review-source { font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
+.review-project { margin: 0; }

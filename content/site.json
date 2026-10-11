@@ -11,7 +11,8 @@
     "available": true,
     "announcement": "",
     "goatcounter": "assardeveloper",
-    "brand": "blue"
+    "brand": "blue",
+    "googleVerification": ""
   },
   "stats": [
     {
@@ -345,5 +346,6 @@
     }
   ],
   "sponsorSlots": [],
-  "sponsoredVideos": []
+  "sponsoredVideos": [],
+  "reviews": []
 }

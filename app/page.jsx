@@ -14,6 +14,7 @@ import FreeCode from "./components/FreeCode";
 import PaidCode from "./components/PaidCode";
 import Newsletter from "./components/Newsletter";
 import SponsorSlot from "./components/SponsorSlot";
+import Reviews from "./components/Reviews";
 import { getVideos } from "@/lib/youtube";
 
 const services = [
@@ -99,6 +100,8 @@ export default async function Home() {
           <Projects />
         </div>
       </section>
+
+      <Reviews />
 
       <section className="section section-alt">
         <div className="container">
