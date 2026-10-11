@@ -780,3 +780,28 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .logo, .header-hire, .nav a { white-space: nowrap; }
 .nav a { padding: 7px 10px; }
 .header-actions { gap: 8px; }
+
+/* ───────────── Black (monochrome) brand ───────────── */
+:root[data-brand="black"] {
+  --btn-bg: #ffffff; --on-accent: #000000;
+  --accent: #ffffff; --accent-2: #a1a1aa; --accent-3: #e4e4e7; --accent-deep: #3f3f46; --blob-2: #27272a;
+  --chart-1: #2b9be6;
+}
+:root[data-brand="black"]:not([data-theme="light"]) {
+  --bg: #000000; --bg-alt: #0a0a0a; --card: #111111; --border: #232323; --text: #f5f5f5; --muted: #a1a1aa;
+  --header-bg: rgba(0, 0, 0, 0.8); --header-bg-solid: rgba(0, 0, 0, 0.95); --glass: rgba(17, 17, 17, 0.9);
+  --grid-line: rgba(255, 255, 255, 0.05); --blob-opacity: 0.55;
+}
+:root[data-brand="black"][data-theme="light"] {
+  --bg: #fafafa; --bg-alt: #f4f4f5; --card: #ffffff; --border: #e4e4e7; --text: #09090b; --muted: #52525b;
+  --btn-bg: #09090b; --on-accent: #ffffff; --accent: #09090b; --accent-2: #52525b; --accent-3: #71717a;
+  --accent-deep: #d4d4d8; --blob-2: #e4e4e7; --chart-1: #0a6fc2;
+  --header-bg: rgba(250, 250, 250, 0.85); --header-bg-solid: rgba(250, 250, 250, 0.96); --glass: rgba(255, 255, 255, 0.92);
+}
+/* Keep a green "available" signal in the monochrome theme */
+:root[data-brand="black"] .available:not(.available-off) { color: #4ade80; background: rgba(74, 222, 128, 0.08); border-color: rgba(74, 222, 128, 0.25); }
+:root[data-brand="black"] .available:not(.available-off) .pulse-dot { background: #4ade80; }
+:root[data-brand="black"][data-theme="light"] .available:not(.available-off) { color: #15803d; }
+/* White buttons: subtle hover instead of colored glow */
+:root[data-brand="black"] .btn:hover { box-shadow: 0 8px 24px rgba(255, 255, 255, 0.12); }
+:root[data-brand="black"] .btn-outline { color: var(--text) !important; }

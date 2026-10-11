@@ -528,6 +528,7 @@ function Overview({ data, setSite, go }) {
 }
 
 const brands = [
+  { id: "black", label: "Black", colors: ["#000000", "#52525b"] },
   { id: "violet", label: "Purple", colors: ["#7c3aed", "#f472b6"] },
   { id: "blue", label: "Blue", colors: ["#1e6bff", "#5ee7c3"] },
   { id: "emerald", label: "Green", colors: ["#059669", "#2dd4bf"] },
@@ -545,7 +546,7 @@ function BrandPicker({ value, onChange }) {
           <button
             key={b.id}
             type="button"
-            className={`brand-swatch ${(value || "violet") === b.id ? "on" : ""}`}
+            className={`brand-swatch ${(value || "black") === b.id ? "on" : ""}`}
             onClick={() => {
               document.documentElement.dataset.brand = b.id;
               onChange(b.id);
