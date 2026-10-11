@@ -9,8 +9,10 @@
     "deploy": "zsh scripts/deploy.sh"
   },
   "dependencies": {
+    "marked": "^18.1.0",
     "next": "^16.4.0",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "simple-icons": "^16.35.0"
   }
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContent } from "@/lib/content";
-import SocialLinks from "./SocialLinks";
+import SocialIcons from "./SocialIcons";
 
 export default function Footer() {
   const { site } = useContent();
@@ -19,7 +19,7 @@ export default function Footer() {
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
         </div>
-        <SocialLinks />
+        <SocialIcons />
       </div>
       <div className="container muted small footer-bottom">
         © {new Date().getFullYear()} {site.owner}. <Link href="/hire/">Start a project →</Link>
