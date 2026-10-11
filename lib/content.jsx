@@ -21,6 +21,11 @@ export function ContentProvider({ children }) {
       .catch(() => {});
   }, []);
 
+  // Apply the brand color chosen in Admin → General (also updates live after a save).
+  useEffect(() => {
+    document.documentElement.dataset.brand = content.site.brand || "violet";
+  }, [content.site.brand]);
+
   return <ContentContext.Provider value={content}>{children}</ContentContext.Provider>;
 }
 

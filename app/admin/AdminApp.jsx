@@ -527,10 +527,44 @@ function Overview({ data, setSite, go }) {
   );
 }
 
+const brands = [
+  { id: "violet", label: "Purple", colors: ["#7c3aed", "#f472b6"] },
+  { id: "blue", label: "Blue", colors: ["#1e6bff", "#5ee7c3"] },
+  { id: "emerald", label: "Green", colors: ["#059669", "#2dd4bf"] },
+  { id: "orange", label: "Orange", colors: ["#ea580c", "#fb7185"] },
+  { id: "pink", label: "Pink", colors: ["#db2777", "#c084fc"] },
+];
+
+function BrandPicker({ value, onChange }) {
+  return (
+    <div className="card admin-block">
+      <h3>Website color</h3>
+      <p className="muted small" style={{ margin: 0 }}>Changes the main color of your website and admin. Preview here, then Save &amp; publish.</p>
+      <div className="brand-picker">
+        {brands.map((b) => (
+          <button
+            key={b.id}
+            type="button"
+            className={`brand-swatch ${(value || "violet") === b.id ? "on" : ""}`}
+            onClick={() => {
+              document.documentElement.dataset.brand = b.id;
+              onChange(b.id);
+            }}
+          >
+            <span style={{ background: `linear-gradient(135deg, ${b.colors[0]}, ${b.colors[1]})` }} />
+            {b.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function General({ site, setSite }) {
   return (
     <>
       <h1 className="admin-title">General</h1>
+      <BrandPicker value={site.brand} onChange={(v) => setSite("brand", v)} />
       <div className="card admin-block">
         <div className="admin-grid">
           <Field label="Website name" value={site.name} onChange={(v) => setSite("name", v)} />
