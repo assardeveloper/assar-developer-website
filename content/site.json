@@ -347,5 +347,18 @@
   ],
   "sponsorSlots": [],
   "sponsoredVideos": [],
-  "reviews": []
+  "reviews": [
+    {
+      "name": "Jordan Miller",
+      "role": "Founder, US Startup",
+      "country": "United States",
+      "rating": "★★★★★",
+      "text": "Assar delivered a polished Flutter app with a great UI and smooth Firebase integration. Communication was clear, and the project was handled professionally.",
+      "project": "Flutter mobile app development",
+      "photo": "",
+      "source": "",
+      "link": "",
+      "hidden": false
+    }
+  ]
 }
