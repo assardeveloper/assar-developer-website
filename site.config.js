@@ -6,7 +6,7 @@ import content from "./content/site.json";
 
 export const fixed = {
   // Your live website address. Change if you buy a custom domain.
-  url: "https://assardeveloper-dev.web.app",
+  url: "https://assardeveloper.com",
   // The site loads your latest videos from this YouTube channel on every build.
   youtubeChannelId: "UCjwwMPtCOglPcBuwX1HMUNA",
   githubUser: "assardeveloper",

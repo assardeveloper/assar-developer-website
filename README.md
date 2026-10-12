@@ -24,7 +24,8 @@ npm run dev      # open http://localhost:3000
 2. Copy the form ID (the part after `/f/`) into `formspreeId` in `site.config.js`.
 
 ## Publish to Firebase
-Live address: https://assardeveloper-dev.web.app
+Live address: https://assardeveloper.com (also https://assardeveloper-dev.web.app)
+DNS: Cloudflare (A @ 199.36.158.100, TXT @ hosting-site=assardeveloper-dev, CNAME www → assardeveloper-dev.web.app; all "DNS only")
 
 ```bash
 npm run deploy   # gets newest videos + GitHub repos, builds, and publishes
