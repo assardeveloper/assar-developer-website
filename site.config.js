@@ -40,6 +40,7 @@ export function buildContent(c) {
     sponsorSlots: (c.sponsorSlots ?? []).filter((s) => !s.hidden && (!s.until || s.until >= new Date().toISOString().slice(0, 10))),
     sponsoredVideos: c.sponsoredVideos ?? [],
     reviews: (c.reviews ?? []).filter((r) => !r.hidden && r.text),
+    tiktokVideos: (c.tiktokVideos ?? []).filter((v) => !v.hidden && /tiktok\.com/.test(v.url ?? "")),
   };
 }
 

@@ -19,6 +19,7 @@ const tabs = [
   { id: "reviews", label: "Reviews", icon: "⭐" },
   { id: "stats", label: "Stats", icon: "📊" },
   { id: "faqs", label: "FAQs", icon: "❓" },
+  { id: "tiktok", label: "TikTok videos", icon: "🎵" },
   { id: "videos", label: "Video code", icon: "🎬" },
 ];
 
@@ -493,6 +494,22 @@ function Dashboard({ token, onLogout, onNewKey }) {
                 fields={[
                   { key: "q", label: "Question" },
                   { key: "a", label: "Answer", type: "textarea" },
+                ]}
+              />
+            )}
+            {tab === "tiktok" && (
+              <ListEditor
+                title="TikTok videos"
+                hint="Paste links to your best TikToks (most viewed first). The cover and title load automatically. Shown on your home page (top 5) and Videos page."
+                items={data.tiktokVideos ?? []}
+                onChange={(v) => set("tiktokVideos", v)}
+                titleKey="url"
+                newItem={{ url: "https://www.tiktok.com/@assardeveloper2/video/", views: "", title: "", hidden: false }}
+                fields={[
+                  { key: "url", label: "TikTok video link" },
+                  { key: "views", label: "Views (e.g. 1.2M)", short: true },
+                  { key: "title", label: "Custom title (optional)" },
+                  { key: "hidden", label: "Hide from website", type: "checkbox" },
                 ]}
               />
             )}

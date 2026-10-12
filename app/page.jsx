@@ -16,6 +16,9 @@ import Newsletter from "./components/Newsletter";
 import SponsorSlot from "./components/SponsorSlot";
 import Reviews from "./components/Reviews";
 import { getVideos } from "@/lib/youtube";
+import { getTikTokStats } from "@/lib/tiktok";
+import HomeVideos from "./components/HomeVideos";
+import { site } from "@/site.config";
 
 const services = [
   { icon: "📱", title: "Mobile apps", desc: "One Flutter codebase for iOS and Android, with native performance." },
@@ -28,6 +31,7 @@ const services = [
 
 export default async function Home() {
   const videos = (await getVideos()).slice(0, 5);
+  const tiktokStats = await getTikTokStats(site.tiktokUser || "assardeveloper2");
   return (
     <>
       <section className="hero hero-home">
@@ -108,11 +112,11 @@ export default async function Home() {
           <div className="section-head">
             <div>
               <h2 className="reveal">Watch me build Flutter apps</h2>
-              <p className="muted section-lead reveal">Quick Flutter UI builds. Like one? Grab the code for free.</p>
+              <p className="muted section-lead reveal">Quick Flutter UI builds watched by 100K+ followers on TikTok.</p>
             </div>
             <Link href="/videos/" className="btn btn-outline">All videos →</Link>
           </div>
-          {videos.length > 0 && <VideoGrid videos={videos} />}
+          <HomeVideos youtube={videos} tiktokStats={tiktokStats} />
           <SponsorSlot />
           <div style={{ marginTop: 32 }}><SocialLinks /></div>
         </div>

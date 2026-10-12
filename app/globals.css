@@ -822,3 +822,16 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .admin-savebar:has(.rekey) { flex-wrap: wrap; }
 .rekey { display: flex; gap: 8px; flex-wrap: wrap; width: 100%; }
 .rekey input { flex: 1 1 180px; font: inherit; font-size: 0.88rem; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
+
+/* ───────────── TikTok ───────────── */
+.tt-profile { display: flex; align-items: center; gap: 22px; margin-bottom: 24px; color: var(--text); flex-wrap: wrap; }
+.tt-profile:hover { text-decoration: none; }
+.tt-logo { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center; background: #000; color: #fff; box-shadow: -3px -3px 0 #25F4EE inset, 3px 3px 0 #FE2C55 inset; flex: none; }
+.tt-name { display: flex; flex-direction: column; margin-right: auto; }
+.tt-stat { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
+.tt-stat strong { font-size: 1.5rem; line-height: 1.1; }
+@media (max-width: 600px) { .tt-name { width: 100%; } .tt-follow { margin-left: auto; } }
+.tt-ph { position: absolute; inset: 0; background: linear-gradient(135deg, #25F4EE33, #FE2C5533); }
+.tt-views { position: absolute; left: 8px; bottom: 8px; z-index: 1; font-size: 0.78rem; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
+.video-subhead { display: flex; align-items: center; gap: 10px; margin: 48px 0 18px; }
+.video-subhead h3 { margin: 0; font-size: 1.3rem; }

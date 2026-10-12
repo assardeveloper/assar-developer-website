@@ -12,7 +12,8 @@
     "announcement": "",
     "goatcounter": "assardeveloper",
     "brand": "blue",
-    "googleVerification": ""
+    "googleVerification": "",
+    "tiktokUser": "assardeveloper2"
   },
   "stats": [
     {
@@ -24,8 +25,8 @@
       "label": "Apps built"
     },
     {
-      "value": "1M+",
-      "label": "Video views"
+      "value": "106K+",
+      "label": "TikTok followers"
     },
     {
       "value": "4",
@@ -279,9 +280,9 @@
     },
     {
       "platform": "TikTok",
-      "followers": "",
+      "followers": "106K",
       "avgViews": "",
-      "note": "",
+      "note": "1.2M likes",
       "url": "https://www.tiktok.com/@assardeveloper2"
     },
     {
@@ -360,5 +361,6 @@
       "link": "",
       "hidden": false
     }
-  ]
+  ],
+  "tiktokVideos": []
 }
