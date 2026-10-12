@@ -302,7 +302,7 @@
   "sponsorPackages": [
     {
       "name": "Short mention",
-      "price": "$35",
+      "price": "$100",
       "desc": "A 5–10 second mention of your product inside one of my Flutter Shorts, plus your link in the description.",
       "features": [
         "Shown on YouTube, TikTok & Instagram",
