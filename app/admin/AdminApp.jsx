@@ -64,7 +64,7 @@ export default function AdminApp() {
   }
 
   if (!state.ready) return <div className="admin-center"><div className="spinner" /></div>;
-  if (state.token) return <Dashboard token={state.token} onLogout={logout} />;
+  if (state.token) return <Dashboard token={state.token} onLogout={logout} onNewKey={loggedIn} />;
   if (state.lock) return <PasswordLogin lock={state.lock} onLogin={loggedIn} onReset={forgetDevice} />;
   return <Setup initialKey={state.oldKey ?? ""} onDone={loggedIn} />;
 }
@@ -199,7 +199,7 @@ function Setup({ initialKey, onDone }) {
 
 /* ───────────── Dashboard ───────────── */
 
-function Dashboard({ token, onLogout }) {
+function Dashboard({ token, onLogout, onNewKey }) {
   const [tab, setTab] = useState("dashboard");
   const [data, setData] = useState(null);
   const [saved, setSaved] = useState(null); // last saved JSON string
@@ -238,7 +238,30 @@ function Dashboard({ token, onLogout }) {
       setSaved(JSON.stringify(data));
       setStatus({ type: "ok", text: "Saved! Your website will show the changes within 1–5 minutes." });
     } catch (err) {
-      setStatus({ type: "error", text: err.message });
+      setStatus({ type: err.status === 401 ? "rekey" : "error", text: err.message });
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  // Replace an expired/regenerated GitHub key without losing unsaved edits.
+  async function replaceKey(e) {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    const key = String(f.get("key")).trim();
+    const password = String(f.get("password"));
+    if (password.length < 8) return setStatus({ type: "rekey", text: "Use at least 8 characters for your password." });
+    setSaving(true);
+    try {
+      await verifyToken(key);
+      store.set(localStorage, LOCK_KEY, JSON.stringify(await lockSecret(key, password)));
+      onNewKey(key);
+      const newSha = await saveContent(key, data, sha);
+      setSha(newSha);
+      setSaved(JSON.stringify(data));
+      setStatus({ type: "ok", text: "New key saved, and your changes are published! Live in 1–5 minutes." });
+    } catch (err) {
+      setStatus({ type: err.status === 401 ? "rekey" : "error", text: err.message });
     } finally {
       setSaving(false);
     }
@@ -480,9 +503,16 @@ function Dashboard({ token, onLogout }) {
 
       {data && (
         <div className={`admin-savebar ${dirty || status.text ? "show" : ""}`}>
-          <span className={status.type === "error" ? "error" : status.type === "ok" ? "success" : "muted"}>
+          <span className={status.type === "error" || status.type === "rekey" ? "error" : status.type === "ok" ? "success" : "muted"}>
             {status.text || (dirty ? "You have unsaved changes" : "")}
           </span>
+          {status.type === "rekey" && (
+            <form className="rekey" onSubmit={replaceKey}>
+              <input name="key" type="password" placeholder="New GitHub key (github_pat_…)" required autoComplete="off" />
+              <input name="password" type="password" placeholder="Your admin password" required autoComplete="current-password" />
+              <button className="btn btn-small" disabled={saving}>{saving ? "Saving…" : "Use key & save"}</button>
+            </form>
+          )}
           {dirty && (
             <div className="admin-savebar-actions">
               <button className="btn btn-outline btn-small" onClick={() => setData(JSON.parse(saved))} disabled={saving}>Discard</button>
