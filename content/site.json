@@ -263,7 +263,7 @@
     {
       "name": "Third project",
       "price": "$3",
-      "desc": "Add the details in Admin → Products.",
+      "desc": "A modern and clean Flutter login page UI built with a beautiful design and reusable Flutter widgets. Perfect for developers who want to save time and use a ready-made login screen in their Flutter projects.\n\n**Features:**\n- Modern and responsive UI design\n- Clean Flutter/Dart source code\n- Easy to customize colors, text, and styles\n- Beginner-friendly structure\n- Ideal for mobile app projects\n\n**What You Get:** Flutter source code for the login page UI.\n\n**Note:** UI only — authentication and backend functionality are not included.\n\n**Price:** $3",
       "features": [
         "Full Flutter source code"
       ],
