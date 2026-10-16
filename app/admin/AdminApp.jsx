@@ -442,6 +442,8 @@ function Dashboard({ token, onLogout, onNewKey }) {
                   { key: "title", label: "Title" },
                   { key: "type", label: "Label (e.g. Client app)" },
                   { key: "desc", label: "Description", type: "textarea" },
+                  { key: "problem", label: "Case study: the client's problem (optional)", type: "textarea" },
+                  { key: "result", label: "Case study: the result, e.g. launch date, users, store rating (optional)", type: "textarea" },
                   { key: "tech", label: "Technologies (comma separated)", type: "csv" },
                   { key: "hidden", label: "Hide from website", type: "checkbox" },
                 ]}
@@ -644,6 +646,8 @@ function General({ site, setSite }) {
           <Field label="Years of experience" type="number" value={site.yearsExperience} onChange={(v) => setSite("yearsExperience", Number(v) || 0)} />
           <Field label="Email" type="email" value={site.email} onChange={(v) => setSite("email", v)} />
           <Field label="WhatsApp (digits only, e.g. 923001234567)" value={site.whatsapp} onChange={(v) => setSite("whatsapp", v.replace(/\D/g, ""))} />
+          <Field label="Book-a-call link (Calendly or Cal.com, optional)" value={site.bookingUrl} onChange={(v) => setSite("bookingUrl", v.trim())} placeholder="https://cal.com/assardeveloper/30min" />
+          <Field label="Call hours (shown next to Book a call)" value={site.callHours} onChange={(v) => setSite("callHours", v)} />
           <Field label="Formspree form ID (optional)" value={site.formspreeId} onChange={(v) => setSite("formspreeId", v)} />
           <Field label="Tip / Buy me a coffee link (optional)" value={site.tipUrl} onChange={(v) => setSite("tipUrl", v)} />
           <Field label="GoatCounter code (for Analytics)" value={site.goatcounter} onChange={(v) => setSite("goatcounter", v.trim().toLowerCase())} placeholder="assardeveloper" />

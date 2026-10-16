@@ -15,6 +15,7 @@ import PaidCode from "./components/PaidCode";
 import Newsletter from "./components/Newsletter";
 import SponsorSlot from "./components/SponsorSlot";
 import Reviews from "./components/Reviews";
+import BookCall, { CallHours } from "./components/BookCall";
 import { getVideos } from "@/lib/youtube";
 import { getTikTokStats } from "@/lib/tiktok";
 import HomeVideos from "./components/HomeVideos";
@@ -57,7 +58,7 @@ export default async function Home() {
             </p>
             <div className="hero-cta rise" style={{ "--d": "240ms" }}>
               <Link href="/hire/#quote" data-track="hire:hero-quote" className="btn btn-large shine">Get a free quote</Link>
-              <Link href="/shop/" data-track="hire:hero-quick-fixes" className="btn btn-large btn-outline">Quick fixes from $25</Link>
+              <BookCall track="hire:hero-book-call" fallback={{ href: "#work", label: "See my work" }} />
             </div>
             <Stats />
           </div>
@@ -84,19 +85,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <h2 className="reveal">Need something small? ⚡</h2>
-              <p className="muted section-lead reveal">Fixed price, fast delivery. Order in one click.</p>
-            </div>
-            <Link href="/shop/" className="btn btn-outline">All services →</Link>
-          </div>
-          <ServiceCards limit={3} />
-        </div>
-      </section>
-
       <section className="section" id="work">
         <div className="container">
           <h2 className="reveal">Recent work</h2>
@@ -106,6 +94,35 @@ export default async function Home() {
       </section>
 
       <Reviews />
+
+      <section className="section section-alt">
+        <div className="container">
+          <h2 className="reveal">Build a full app with me</h2>
+          <p className="muted section-lead reveal">Starting prices. Every project gets a free, exact quote.</p>
+          <Packages />
+        </div>
+      </section>
+
+      <section className="section cta">
+        <div className="hero-bg" aria-hidden="true"><span className="blob b1" /><span className="blob b2" /></div>
+        <div className="container center">
+          <h2 className="reveal">Ready to build your app?</h2>
+          <p className="lead reveal">Tell me about your idea. I reply within 24 hours.</p>
+          <div className="hero-cta reveal" style={{ justifyContent: "center", margin: "0" }}>
+            <Link href="/hire/#quote" data-track="hire:bottom-cta" className="btn btn-large shine">Start your project</Link>
+            <BookCall track="hire:bottom-book-call" />
+          </div>
+          <CallHours />
+        </div>
+      </section>
+
+      <section className="dev-divider">
+        <div className="container">
+          <p className="eyebrow">For developers</p>
+          <h2 className="reveal">Learn Flutter with me 🎓</h2>
+          <p className="muted section-lead reveal">Videos, source code and quick fixes for fellow Flutter developers.</p>
+        </div>
+      </section>
 
       <section className="section section-alt">
         <div className="container">
@@ -135,23 +152,19 @@ export default async function Home() {
 
       <section className="section section-alt">
         <div className="container">
-          <h2 className="reveal">Build a full app with me</h2>
-          <p className="muted section-lead reveal">Starting prices. Every project gets a free, exact quote.</p>
-          <Packages />
+          <div className="section-head">
+            <div>
+              <h2 className="reveal">Need something small? ⚡</h2>
+              <p className="muted section-lead reveal">Fixed price, fast delivery. Order in one click.</p>
+            </div>
+            <Link href="/shop/" className="btn btn-outline">All services →</Link>
+          </div>
+          <ServiceCards limit={3} />
         </div>
       </section>
 
       <section className="section">
         <div className="container narrow"><Newsletter /></div>
-      </section>
-
-      <section className="section cta">
-        <div className="hero-bg" aria-hidden="true"><span className="blob b1" /><span className="blob b2" /></div>
-        <div className="container center">
-          <h2 className="reveal">Ready to build your app?</h2>
-          <p className="lead reveal">Tell me about your idea. I reply within 24 hours.</p>
-          <Link href="/hire/#quote" data-track="hire:bottom-cta" className="btn btn-large shine reveal">Start your project</Link>
-        </div>
       </section>
     </>
   );

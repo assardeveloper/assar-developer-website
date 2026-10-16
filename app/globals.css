@@ -835,3 +835,10 @@ body, .card, .header, .footer, .section-alt, .marquee { transition: background-c
 .tt-views { position: absolute; left: 8px; bottom: 8px; z-index: 1; font-size: 0.78rem; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 .video-subhead { display: flex; align-items: center; gap: 10px; margin: 48px 0 18px; }
 .video-subhead h3 { margin: 0; font-size: 1.3rem; }
+
+/* Book a call / case studies */
+.call-hours { font-size: 0.9rem; margin: 12px 0 0; }
+.case { margin: 0 0 14px; display: grid; gap: 4px; font-size: 0.9rem; }
+.case dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-2); margin-top: 6px; }
+.case dd { margin: 0; color: var(--text); }
+.dev-divider { text-align: center; padding: 56px 0 0; }

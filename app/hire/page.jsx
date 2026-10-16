@@ -4,6 +4,7 @@ import Faqs from "../components/Faqs";
 import Reviews from "../components/Reviews";
 import Packages from "../components/Packages";
 import QuoteForm from "../components/QuoteForm";
+import BookCall, { CallHours } from "../components/BookCall";
 
 export const metadata = {
   title: "Hire a Flutter Developer",
@@ -31,6 +32,11 @@ export default function Hire() {
             <Years />+ years building Flutter apps for startups and businesses. Clear
             prices, weekly updates, and you own all the code.
           </p>
+          <div className="hero-cta" style={{ margin: "24px 0 0" }}>
+            <a href="#quote" className="btn btn-large shine">Get a free quote</a>
+            <BookCall track="hire:hire-hero-book-call" />
+          </div>
+          <CallHours />
         </div>
       </section>
 
@@ -65,6 +71,7 @@ export default function Hire() {
             <div>
               <h2>Get a free quote</h2>
               <p className="muted">You'll hear back from me personally, usually within a few hours.</p>
+              <CallHours />
             </div>
           </div>
           <QuoteForm />

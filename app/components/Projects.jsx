@@ -11,6 +11,12 @@ export default function Projects() {
           <span className="tag">{p.type}</span>
           <h3>{p.title}</h3>
           <p className="muted">{p.desc}</p>
+          {(p.problem || p.result) && (
+            <dl className="case">
+              {p.problem && <><dt>Challenge</dt><dd>{p.problem}</dd></>}
+              {p.result && <><dt>Result</dt><dd>{p.result}</dd></>}
+            </dl>
+          )}
           <div className="chips">
             {(p.tech ?? []).map((t) => <span key={t} className="chip">{t}</span>)}
           </div>
